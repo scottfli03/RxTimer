@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">RxTimer</string>
 
-    <string name="hello_world">Welcome To RxTimer!!</string>
+    <string name="hello_world">Welcome to RxTimer!!</string>
     <string name="action_settings">Settings</string>
 </resources>
