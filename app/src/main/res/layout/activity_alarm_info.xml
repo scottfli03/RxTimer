@@ -12,7 +12,7 @@
         android:id="@+id/TextViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Patient Name"
+        android:text="@string/patient_name"
         android:textSize="10pt"
         android:textColor="#fffffefc"
         />
@@ -21,7 +21,7 @@
     <EditText
         android:id="@+id/EditTextName"
         android:layout_height="wrap_content"
-        android:hint="name"
+        android:hint="@string/patient_name"
         android:inputType="textPersonName"
         android:layout_width="fill_parent"
         android:textColor="#ffffff"
@@ -31,7 +31,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Medication Details"
+        android:text="@string/med_title"
         android:id="@+id/medDetailsTextView"
         android:textSize="10pt"
         android:textColor="#ffffffff"
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:hint="Medication Name"
+        android:hint="@string/med_name"
         android:ems="10"
         android:id="@+id/medNameText"
         android:textColor="#ffffff"
@@ -55,7 +55,7 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/specialInstText"
-        android:hint="Special Instructions"
+        android:hint="@string/special_inst"
         android:textColor="#ffffff"
         android:layout_below="@id/medNameText"
         />
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="10pt"
-        android:text="Reminder Information"
+        android:text="@string/remind_title"
         android:textColor="#ffffffff"
         android:layout_below="@id/specialInstText"
     />
@@ -87,7 +87,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:id="@+id/freqText"
-       android:text="Frequency"
+       android:text="@string/frequency"
         android:textSize="10pt"
 
         android:layout_below="@+id/endDateTextView" />
@@ -109,7 +109,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/startTimeTextView"
-        android:text="Start Time"
+        android:text="@string/start_time"
         android:layout_below="@id/ReminderLabel"
         android:textSize="10pt"
         android:paddingTop="8dp"
@@ -121,7 +121,7 @@
         android:inputType="time"
         android:ems="8"
         android:id="@+id/startTime"
-        android:hint="Start Time"
+        android:hint="@string/start_time"
         android:textColor="#ffffff"
         android:layout_below="@id/ReminderLabel"
 
@@ -133,7 +133,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/startDateTextView"
-        android:text="Start Date"
+        android:text="@string/start_date"
         android:layout_below="@id/startTimeTextView"
         android:textSize="10pt"
         android:paddingTop="8dp"
@@ -145,7 +145,7 @@
         android:inputType="date"
         android:ems="8"
         android:id="@+id/startDateSet"
-        android:hint="@string/state_date"
+        android:hint="@string/start_date"
         android:textColor="#ffffff"
         android:layout_below="@id/startTimeTextView"
 
@@ -156,7 +156,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/endDateTextView"
-        android:text="End Date"
+        android:text="@string/end_date"
         android:textSize="10pt"
         android:paddingTop="8dp"
         android:layout_below="@id/startDateTextView"

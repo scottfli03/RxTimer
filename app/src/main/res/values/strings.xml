@@ -10,7 +10,18 @@
     <string name="frequency4">24 hours</string>
     <string name="title_activity_alarm_info">alarmInfo</string>
 
-    <string name="state_date">Start Date</string>
+    <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
+    <string name="start_time">Start Time</string>
+
     <string name="title_activity_reminder">Reminder</string>
+
+
+    <string name="patient_name">Patient Name</string>
+    <string name="med_name">Medicine Name</string>
+    <string name="special_inst">Special Instructions</string>
+    <string name="remind_title">Patient Name</string>
+    <string name="med_title">Patient Name</string>
+
+
 </resources>
