@@ -9,4 +9,7 @@
     <string name="frequency3">12 hours</string>
     <string name="frequency4">24 hours</string>
     <string name="title_activity_alarm_info">alarmInfo</string>
+
+    <string name="state_date">Start Date</string>
+    <string name="end_date">End Date</string>
 </resources>
