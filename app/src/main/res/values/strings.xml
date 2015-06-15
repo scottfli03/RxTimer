@@ -20,8 +20,8 @@
     <string name="patient_name">Patient Name</string>
     <string name="med_name">Medicine Name</string>
     <string name="special_inst">Special Instructions</string>
-    <string name="remind_title">Patient Name</string>
-    <string name="med_title">Patient Name</string>
+    <string name="remind_title">Reminder Information</string>
+    <string name="med_title">Medicine Name</string>
 
 
 </resources>
