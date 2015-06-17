@@ -22,6 +22,6 @@
     <string name="special_inst">Special Instructions</string>
     <string name="remind_title">Reminder Information</string>
     <string name="med_title">Medicine Information</string>
-
+    <string name="title_activity_reminder_view">ReminderView</string>
 
 </resources>
