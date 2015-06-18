@@ -188,17 +188,17 @@
         android:text="Dosage"
         android:textSize="10pt"
         android:textColor="#fffffefc"
-        android:layout_below="@+id/EditTextName"
+        android:layout_below="@id/EditTextName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/editTextDosage"
         android:layout_below="@+id/textView_dosage"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="dosage" />
+        android:hint="dosage" />
 
 </RelativeLayout>
