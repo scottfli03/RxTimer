@@ -28,7 +28,7 @@ public class ModelAlarm {
         this.alarmHour = 24;
         this.alarmMinutes = 0;
         this.isEnabled = false;
-        this.id = 0;
+        this.id = -1;
     }
 
     public void setID(long id) {
@@ -141,7 +141,7 @@ public class ModelAlarm {
      * Gets the ModelAlarm's alarm minutes
      * @return The minutes
      */
-    public int alarmMinutes() {
+    public int getMinutes() {
         return this.alarmMinutes;
     }
 
