@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rxalarms.rxtimer" >
 
+    <!--
+    setting up sdk version for sdk
+    -->
+
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="18"
@@ -26,6 +30,9 @@
             android:label="@string/title_activity_alarm_info" >
         </activity>
 
+        <!--
+            Starting activity
+        -->
         <activity
             android:name=".Reminder"
             android:label="@string/app_name" >
