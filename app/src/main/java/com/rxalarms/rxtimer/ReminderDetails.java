@@ -6,18 +6,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class ReminderView extends ActionBarActivity {
+public class ReminderDetails extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reminder_view);
+        setContentView(R.layout.activity_reminder_details);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_reminder_view, menu);
+        getMenuInflater().inflate(R.menu.menu_reminder_details, menu);
         return true;
     }
 
