@@ -1,7 +1,7 @@
 package com.rxalarms.rxtimer;
 
 /**
- * Created by scottfli03 on 6/17/15.
+ * Created by Scott Flischel on 6/17/15.
  *
  * ModelAlarm holds information about the Alarm and it's reminder information
  */
