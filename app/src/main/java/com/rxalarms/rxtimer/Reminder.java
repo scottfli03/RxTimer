@@ -1,5 +1,6 @@
 package com.rxalarms.rxtimer;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,13 +27,26 @@ public class Reminder extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        //int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+
+       // if (id == R.id.action_settings) {
+          //  return true;
+        //}
+
+        //return super.onOptionsItemSelected(item);
+
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.action_add_reminder: {
+                Intent intent = new Intent(this, alarmInfo.class);
+                startActivity(intent);
+                break;
+            }
+
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }
