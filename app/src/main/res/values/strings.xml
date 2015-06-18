@@ -23,6 +23,7 @@
     <string name="remind_title">Patient Name</string>
     <string name="med_title">Patient Name</string>
     <string name="title_activity_reminder_view">ReminderView</string>
+    <string name="title_activity_reminder_details">ReminderDetails</string>
 
 
 </resources>

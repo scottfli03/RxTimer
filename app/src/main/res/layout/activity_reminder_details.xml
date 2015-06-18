@@ -1,0 +1,112 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".ReminderDetails"
+    >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Patient Name"
+        android:textSize="10pt"
+        android:id="@+id/textView_PatientName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#ffbbbbbb" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2_patientName"
+        android:layout_below="@+id/textView_PatientName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="patient_name" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="MedicineName"
+        android:textSize="10pt"
+        android:id="@+id/textView"
+        android:background="#ffbbbbbb"
+        android:layout_below="@+id/editText2_patientName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2_medName"
+        android:text="medicine_name"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Dosage"
+        android:textSize="10pt"
+        android:id="@+id/textView3_dosage"
+        android:background="#ffbbbbbb"
+        android:layout_below="@+id/editText2_medName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2_dosage"
+        android:text="dosage"
+        android:layout_below="@+id/textView3_dosage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:textSize="10pt"
+        android:id="@+id/textView3_time"
+        android:background="#ffbbbbbb"
+        android:layout_below="@+id/editText2_dosage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/editText2_time"
+        android:layout_below="@+id/textView3_time"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="time" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Instruction"
+        android:textSize="10pt"
+        android:id="@+id/textView3_instruction"
+        android:background="#ffbbbbbb"
+        android:layout_below="@+id/editText2_time"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:layout_below="@+id/textView3_instruction"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

@@ -26,7 +26,7 @@
         </activity>
         <activity
             android:name=".ReminderDetails"
-            android:label="@string/title_activity_reminder_view" >
+            android:label="@string/title_activity_reminder_details" >
         </activity>
     </application>
 
