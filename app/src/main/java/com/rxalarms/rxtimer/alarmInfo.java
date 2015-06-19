@@ -22,6 +22,12 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 
+/***
+ * @author Tracey Wilson
+ *
+ * this class sets up a form for the user to input information about the patient, medicine,
+ * the alarm frequencey, etc.
+ */
 public class alarmInfo extends ActionBarActivity implements View.OnClickListener {
     private EditText fromDateEtxt;
     private EditText toDateEtxt;
@@ -63,7 +69,10 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
         timeEtxt.requestFocus();
     }
 
-
+    /***
+     * sets up the date and time pickers on the form. When the start date end date or time are selected
+     * the appropriate picker will be displayed
+     */
     private void setDateTimeField() {
         fromDateEtxt.setOnClickListener(this);
         toDateEtxt.setOnClickListener(this);
@@ -93,17 +102,20 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
-
+        timeEtxt.setText(hour + ":" + minute);
+        this.startHour = hour;
+        this.startMin = minute;
         timePickerDialog = new TimePickerDialog(this,
                 new TimePickerDialog.OnTimeSetListener() {
 
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay,
-                                          int minute) {
+                                          int minuteOfDay) {
                         // Display Selected time in textbox
-                        timeEtxt.setText(hourOfDay + ":" + minute);
+                        timeEtxt.setText(hourOfDay + ":" + minuteOfDay);
                         startHour = hourOfDay;
-                        startMin = minute;
+                        startMin = minuteOfDay;
+
                     }
                 }, hour, minute, false);
 
@@ -118,7 +130,10 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
     }
 
 
-
+    /***
+     * identifies which field was selected
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         if(view == fromDateEtxt) {
@@ -130,21 +145,34 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
         }
     }
 
+    /***
+     * gives function to the action bar save button
+     * @param item
+     * @return the item selected
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case android.R.id.home: {
                 finish();
+
                 break;
             }
 
             case R.id.action_save_reminder: {
                 updateModelFromLayout();
+
+                AlarmDBHelper dbHelper = new AlarmDBHelper(this);
+                if (alarmDetails.getID() < 0) {
+                    dbHelper.createAlarm(alarmDetails);
+                } else {
+                    dbHelper.updateAlarm(alarmDetails);
+                }
+
                 finish();
             }
         }
-
         return super.onOptionsItemSelected(item);
     }
 
