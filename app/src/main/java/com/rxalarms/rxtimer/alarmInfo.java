@@ -132,7 +132,7 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
 
     /***
      * identifies which field was selected
-     * @param view
+     * @param view  The view
      */
     @Override
     public void onClick(View view) {
@@ -147,7 +147,7 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
 
     /***
      * gives function to the action bar save button
-     * @param item
+     * @param item  The MenuItem
      * @return the item selected
      */
     @Override
@@ -192,7 +192,7 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
         alarmDetails.setDosage(dosage.getText().toString());
 
         EditText instructions = (EditText) findViewById(R.id.specialInstText);
-        alarmDetails.setMedicine(instructions.getText().toString());
+        alarmDetails.setInstructions(instructions.getText().toString());
 
         //work around to set the hour and minutes as separate fields in the Alarm Model object.
         alarmDetails.setAlarmHour(startHour);
