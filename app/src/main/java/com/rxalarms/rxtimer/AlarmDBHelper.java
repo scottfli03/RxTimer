@@ -20,13 +20,13 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
 
     public static final String SQL_CREATE_ALARM =
             "CREATE Table " + Alarm.TABLE_NAME + " (" +
-                    Alarm._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    Alarm.COLUMN_NAME_PATIENT_NAME + " TEXT," +
-                    Alarm.COLUMN_NAME_MEDICINE_NAME + " TEXT," +
-                    Alarm.COLUMN_NAME_DOSAGE + " TEXT," +
-                    Alarm.COLUMN_NAME_INSTRUCTIONS + " TEXT," +
-                    Alarm.COLUMN_NAME_HOUR + " INTEGER," +
-                    Alarm.COLUMN_NAME_MINUTES + " INTEGER," +
+                    Alarm._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    Alarm.COLUMN_NAME_PATIENT_NAME + " TEXT, " +
+                    Alarm.COLUMN_NAME_MEDICINE_NAME + " TEXT, " +
+                    Alarm.COLUMN_NAME_DOSAGE + " TEXT, " +
+                    Alarm.COLUMN_NAME_INSTRUCTIONS + " TEXT, " +
+                    Alarm.COLUMN_NAME_HOUR + " INTEGER, " +
+                    Alarm.COLUMN_NAME_MINUTES + " INTEGER, " +
                     Alarm.COLUMN_NAME_ISENABLED + " BOOLEAN )";
 
     private static final String SQL_DELETE_ALARM =
@@ -75,7 +75,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         String instructions = c.getString(c.getColumnIndex(Alarm.COLUMN_NAME_INSTRUCTIONS));
         int hour = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_HOUR));
         int minutes = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_MINUTES));
-        boolean isEnabled;
+        boolean isEnabled = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_ISENABLED)) == 0 ? false : true;
 
         //I was directed to simplify here.  It needs to say if 0 false, else true.
         //Just incase we run into an issue.
@@ -110,6 +110,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         values.put(Alarm.COLUMN_NAME_INSTRUCTIONS, alarm.getInstructions());
         values.put(Alarm.COLUMN_NAME_HOUR, alarm.getHours());
         values.put(Alarm.COLUMN_NAME_MINUTES, alarm.getMinutes());
+        values.put(Alarm.COLUMN_NAME_ISENABLED, alarm.getIsEnabled());
         return values;
     }
 
