@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ *  Created by Dimple Doshi.
+ *  This class has list of reminder and contain option to add new reminder
+ */
+
 
 public class Reminder extends ActionBarActivity {
 
