@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rxalarms.rxtimer" >
-
-    <!--
-    setting up sdk version for sdk
-    -->
-
+    package="com.rxalarms.rxtimer" > <!-- setting up sdk version for sdk -->
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="18"
-        />
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <service android:name="com.trigg.alarmclock.AlarmService" android:enabled="true"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+   <!-- <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />-->
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
-
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
-
         </activity>
-
-
         <activity
             android:name=".alarmInfo"
             android:label="@string/title_activity_alarm_info" >
         </activity>
 
-        <!--
-            Starting activity
-        -->
+        <!-- Starting activity -->
         <activity
             android:name=".Reminder"
             android:label="@string/app_name" >
@@ -41,13 +39,23 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
+
+        <receiver android:name=".AlarmManagerHelper" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".ReminderDetails"
             android:label="@string/title_activity_reminder_details" >
+        </activity>
 
+        <activity
+            android:name=".AlarmScreen"
+            android:label="@string/title_activity_alarm_screen" >
         </activity>
     </application>
 

@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.rxalarms.rxtimer.AlarmContract.*;
 
 /**
@@ -124,6 +127,29 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         ContentValues values = populateContent(alarm);
         return getWritableDatabase().insert(Alarm.TABLE_NAME, null, values);
     }
+    /**
+     * Returns all the ModelAlarm objects
+     *
+     * @return      All ModelAlarms if any exist or null
+     */
+    public List<ModelAlarm> getAlarms() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + Alarm.TABLE_NAME ;
+
+        Cursor c = db.rawQuery(query, null);
+        List<ModelAlarm> alarmList = new ArrayList<ModelAlarm>();
+
+        while (c.moveToNext()) {
+            alarmList.add(populateModel(c));
+        }
+
+        if (!alarmList.isEmpty()) {
+            return alarmList;
+        }
+        return null;
+    }
+
 
     /**
      * Returns a ModelAlarm object with the matching id
