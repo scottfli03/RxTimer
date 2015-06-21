@@ -14,7 +14,7 @@ import java.util.zip.Inflater;
  * Created by Dimple Doshi on 6/20/2015.
  * This class will help in render list
  */
-public class AlarmListAdaptor extends BaseAdapter {
+public class AlarmListAdapter extends BaseAdapter {
 
     private List<ModelAlarm> mAlarm;
     private Context context;
@@ -25,12 +25,10 @@ public class AlarmListAdaptor extends BaseAdapter {
      * @param alarm alarm list
      */
 
-    public AlarmListAdaptor(Context con, List<ModelAlarm> alarm) {
+    public AlarmListAdapter(Context con, List<ModelAlarm> alarm) {
         context = con;
         mAlarm = alarm;
     }
-
-
 
     @Override
     public int getCount() {
