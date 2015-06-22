@@ -1,5 +1,6 @@
 package com.rxalarms.rxtimer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -17,7 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class AlarmScreen extends ActionBarActivity {
+public class AlarmScreen extends Activity {
 
     public final String TAG = this.getClass().getSimpleName();
 
@@ -49,7 +50,7 @@ public class AlarmScreen extends ActionBarActivity {
 
             @Override
             public void onClick(View view) {
-                mPlayer.stop();
+              //  mPlayer.stop();
                 finish();
             }
         });

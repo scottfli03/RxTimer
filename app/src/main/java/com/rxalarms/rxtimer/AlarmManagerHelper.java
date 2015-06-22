@@ -40,45 +40,16 @@ public class AlarmManagerHelper extends BroadcastReceiver {
                 PendingIntent pIntent = createPendingIntent(context, alarm);
 
                 Calendar calendar = Calendar.getInstance();
+
                 calendar.set(Calendar.HOUR_OF_DAY, alarm.getHours());
                 calendar.set(Calendar.MINUTE, alarm.getMinutes());
                 calendar.set(Calendar.SECOND, 00);
 
-                /*//Find next time to set
-                final int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-                final int nowHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
-                boolean alarmSet = false;
-*/
+
 
                 setAlarm(context, calendar, pIntent);
-               // alarmSet = true;
-               /* //First check if it's later in the week
-                for (int dayOfWeek = Calendar.SUNDAY; dayOfWeek <= Calendar.SATURDAY; ++dayOfWeek) {
-                    if (alarm.getRepeatingDay(dayOfWeek - 1) && dayOfWeek >= nowDay &&
-                            !(dayOfWeek == nowDay && alarm.timeHour < nowHour) &&
-                            !(dayOfWeek == nowDay && alarm.timeHour == nowHour && alarm.timeMinute <= nowMinute)) {
-                        calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
 
-                        setAlarm(context, calendar, pIntent);
-                        alarmSet = true;
-                        break;
-                    }
-                }
 
-                //Else check if it's earlier in the week
-                if (!alarmSet) {
-                    for (int dayOfWeek = Calendar.SUNDAY; dayOfWeek <= Calendar.SATURDAY; ++dayOfWeek) {
-                        if (alarm.getRepeatingDay(dayOfWeek - 1) && dayOfWeek <= nowDay && alarm.repeatWeekly) {
-                            calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
-                            calendar.add(Calendar.WEEK_OF_YEAR, 1);
-
-                            setAlarm(context, calendar, pIntent);
-                            alarmSet = true;
-                            break;
-                        }
-                    }
-                }*/
             }
         }
     }
@@ -114,7 +85,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
         Intent intent = new Intent(context, AlarmService.class);
         intent.putExtra(ID, model.getID());
         intent.putExtra(NAME, model.getPatient());
-        intent.putExtra(MEDICINE, model.getMedicine());
+        //intent.putExtra(MEDICINE, model.getMedicine());
         intent.putExtra(TIME_HOUR, model.getHours());
         intent.putExtra(TIME_MINUTE, model.getMinutes());
        // intent.putExtra(TONE, model.alarmTone.toString());

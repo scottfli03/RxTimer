@@ -39,7 +39,7 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
     private TimePickerDialog timePickerDialog;
     private SimpleDateFormat dateFormatter;
     private ModelAlarm alarmDetails;
-
+    private AlarmDBHelper dbHelper = new AlarmDBHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,14 +162,16 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
 
             case R.id.action_save_reminder: {
                 updateModelFromLayout();
+                AlarmManagerHelper.cancelAlarms(this);
 
-                AlarmDBHelper dbHelper = new AlarmDBHelper(this);
                 if (alarmDetails.getID() < 0) {
                     dbHelper.createAlarm(alarmDetails);
                 } else {
                     dbHelper.updateAlarm(alarmDetails);
                 }
+                AlarmManagerHelper.setAlarms(this);
 
+                setResult(RESULT_OK);
                 finish();
             }
         }
