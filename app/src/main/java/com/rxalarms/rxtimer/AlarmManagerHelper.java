@@ -27,6 +27,11 @@ public class AlarmManagerHelper extends BroadcastReceiver {
         setAlarms(context);
     }
 
+    /***
+     * Sets the time for the alarm and checks to make sure the alarm is in the future
+     * if it is then it creates an alarm instance
+     * @param context
+     */
     public static void setAlarms(Context context) {
         cancelAlarms(context);
 
@@ -41,19 +46,35 @@ public class AlarmManagerHelper extends BroadcastReceiver {
 
                 Calendar calendar = Calendar.getInstance();
 
+
+                final int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+                final int nowHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+                final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
+
+
                 calendar.set(Calendar.HOUR_OF_DAY, alarm.getHours());
                 calendar.set(Calendar.MINUTE, alarm.getMinutes());
                 calendar.set(Calendar.SECOND, 00);
 
+//makes sure the time is not already past
+
+                if (!(alarm.getHours() < nowHour) &&
+                        !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
 
 
-                setAlarm(context, calendar, pIntent);
+                    setAlarm(context, calendar, pIntent);
 
-
+                }
             }
         }
     }
 
+    /***
+     * Method to handle new API changes for setting up the alarm
+     * @param context
+     * @param calendar
+     * @param pIntent
+     */
     @SuppressLint("NewApi")
     private static void setAlarm(Context context, Calendar calendar, PendingIntent pIntent) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -64,6 +85,10 @@ public class AlarmManagerHelper extends BroadcastReceiver {
         }
     }
 
+    /***
+     * Cancels alarms no longer in use
+     * @param context
+     */
     public static void cancelAlarms(Context context) {
         AlarmDBHelper dbHelper = new AlarmDBHelper(context);
 

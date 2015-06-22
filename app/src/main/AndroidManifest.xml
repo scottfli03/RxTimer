@@ -40,6 +40,7 @@
             android:label="@string/title_activity_alarm_info" >
         </activity>
 
+
         <!--<activity
             android:name=".ReminderDetails"
             android:label="@string/title_activity_reminder_details" >
