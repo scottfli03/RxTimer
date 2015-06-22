@@ -27,9 +27,9 @@ public class Reminder extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
-        lView = (ListView) findViewById(R.id.listView);
-        adapter = new AlarmListAdapter(this,dbHelper.getAlarms());
-        lView.setAdapter(adapter);
+        //lView = (ListView) findViewById(R.id.listView);
+        //adapter = new AlarmListAdapter(this,dbHelper.getAlarms());
+        //lView.setAdapter(adapter);
     }
 
     @Override
