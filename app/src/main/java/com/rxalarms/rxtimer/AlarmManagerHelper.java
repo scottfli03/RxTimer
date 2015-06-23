@@ -56,7 +56,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
                 calendar.set(Calendar.MINUTE, alarm.getMinutes());
                 calendar.set(Calendar.SECOND, 00);
 
-//makes sure the time is not already past
+                //makes sure the time is not already past
 
                 if (!(alarm.getHours() < nowHour) &&
                         !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {

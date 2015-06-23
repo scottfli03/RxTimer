@@ -6,11 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-/**
- * Created by Dimple Doshi on 6/20/2015.
- * This class will help in render list
- */
-
 public class ReminderDetails extends ActionBarActivity {
 
     @Override

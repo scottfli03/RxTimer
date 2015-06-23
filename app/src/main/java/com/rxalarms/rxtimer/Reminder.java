@@ -1,12 +1,10 @@
 package com.rxalarms.rxtimer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 /**
  *  Created by Dimple Doshi.
@@ -16,20 +14,10 @@ import android.widget.ListView;
 
 public class Reminder extends ActionBarActivity {
 
-    private AlarmListAdapter adapter;
-    private AlarmDBHelper dbHelper;
-    private ListView lView;
-    private ModelAlarm model;
-    private Context context;
-    private int position = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
-        //lView = (ListView) findViewById(R.id.listView);
-        //adapter = new AlarmListAdapter(this,dbHelper.getAlarms());
-        //lView.setAdapter(adapter);
     }
 
     @Override
