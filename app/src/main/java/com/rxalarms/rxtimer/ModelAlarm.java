@@ -167,7 +167,7 @@ public class ModelAlarm {
      */
     public String toStringReminderInfo() {
         return this.patient + " needs to take " + this.dosage + " of " + this.medicine
-                + "\nInstructions: " + this.instructions;
+                + '\n' + "Instructions: " + this.instructions;
     }
 
     /**
