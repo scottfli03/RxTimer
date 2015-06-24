@@ -109,7 +109,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
     private static PendingIntent createPendingIntent(Context context, ModelAlarm model) {
         Intent intent = new Intent(context, AlarmService.class);
         intent.putExtra(ID, model.getID());
-        intent.putExtra(NAME, model.getPatient());
+        intent.putExtra(NAME, model.toStringReminderInfo());
         //intent.putExtra(MEDICINE, model.getMedicine());
         intent.putExtra(TIME_HOUR, model.getHours());
         intent.putExtra(TIME_MINUTE, model.getMinutes());

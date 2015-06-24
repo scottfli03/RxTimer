@@ -199,6 +199,7 @@
         android:layout_below="@+id/textView_dosage"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:textColor="#ffffff"
         android:hint="dosage" />
 
 </RelativeLayout>
