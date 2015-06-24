@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -170,7 +171,6 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
                     dbHelper.updateAlarm(alarmDetails);
                 }
                 AlarmManagerHelper.setAlarms(this);
-
                 setResult(RESULT_OK);
                 finish();
             }
