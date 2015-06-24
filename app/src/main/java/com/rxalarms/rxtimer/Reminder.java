@@ -1,10 +1,17 @@
 package com.rxalarms.rxtimer;
 
+import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.widget.ListView;
+
+import java.util.List;
 
 /**
  *  Created by Dimple Doshi.
@@ -13,11 +20,19 @@ import android.view.MenuItem;
 
 
 public class Reminder extends ActionBarActivity {
+    private AlarmListAdapter mAdapter;
+    private AlarmDBHelper helper = new AlarmDBHelper(this);
+    public final static int SAVED = 1;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
+        mContext = this;
+        ListView lv = (ListView) findViewById(android.R.id.list);
+        mAdapter = new AlarmListAdapter(mContext, helper.getAlarms());
+        lv.setAdapter(mAdapter);
     }
 
     @Override
@@ -37,7 +52,7 @@ public class Reminder extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.action_add_reminder: {
                 Intent intent = new Intent(this, alarmInfo.class);
-                startActivity(intent);
+                startActivityForResult(intent, SAVED);
                 break;
             }
 
@@ -46,5 +61,16 @@ public class Reminder extends ActionBarActivity {
         }
 
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SAVED) {
+            List<ModelAlarm> alarms = helper.getAlarms();
+            mAdapter.setAlarms(alarms);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }
