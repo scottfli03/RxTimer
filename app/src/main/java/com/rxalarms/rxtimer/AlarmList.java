@@ -11,8 +11,8 @@ import android.widget.ListView;
 import java.util.List;
 
 /**
- *  Created by Dimple Doshi.
- *  This class has list of reminder and contain option to add new reminder
+ *    This class has list of reminder and contain option to add new reminder
+ *    Created by Dimple Doshi.
  */
 
 
@@ -21,6 +21,11 @@ public class AlarmList extends ActionBarActivity {
     private AlarmDBHelper helper = new AlarmDBHelper(this);
     public final static int SAVED = 1;
     private Context mContext;
+
+    /**
+     * This method initialize activity
+     * @param savedInstanceState Bundle - most recently supplied data
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +37,24 @@ public class AlarmList extends ActionBarActivity {
         lv.setAdapter(mAdapter);
     }
 
+    /**
+     * This method Initialize the contents of the Activity's standard options menu
+     * @param menu to place item
+     * @return true if menu to be displayed
+     */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_alarm_list, menu);
         return true;
     }
+
+    /**
+     * This method is call when Item from the menu is selected
+     * @param item menu item that was selected
+     * @return true
+     */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -60,6 +77,14 @@ public class AlarmList extends ActionBarActivity {
         return true;
     }
 
+    /**
+     *  This method called when an activity you launched exits,
+     *  giving you the requestCode you started it with, the resultCode it returned.
+     *
+     * @param requestCode integer request code originally supplied to
+     * @param resultCode  integer result code returned by
+     * @param data intent which return result data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -10,8 +10,17 @@ import android.view.View;
 import com.rxalarms.rxtimer.R;
 import com.rxalarms.rxtimer.AlarmCreator;
 
+/**
+ * @Author Dimple Doshi
+ * No longer in use as main activity class is AlarmList class
+ */
+
 public class MainActivity extends ActionBarActivity {
 
+    /**
+     * This method initialize activity
+     * @param savedInstanceState Bundle - most recently supplied data
+     */
 
 
     @Override
@@ -20,6 +29,12 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * This method Initialize the contents of the Activity's standard options menu
+     * @param menu to place item
+     * @return true if menu to be displayed
+     */
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -27,6 +42,12 @@ public class MainActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    /**
+     * This method is call when Item from the menu is selected
+     * @param item menu item that was selected
+     * @return true
+     */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -52,6 +73,10 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
+    /**
+     * This method will start alarm creator activity
+     * @param view view
+     */
     public void addMedicine(View view) {
         Intent in = new Intent(getApplicationContext(),AlarmCreator.class);
         startActivity(in);

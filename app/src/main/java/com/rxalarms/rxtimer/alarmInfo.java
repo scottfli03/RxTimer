@@ -45,7 +45,7 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alarm_info);
+        setContentView(R.layout.activity_alarm_creator);
 
         alarmDetails = new ModelAlarm();
         dateFormatter = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
@@ -126,7 +126,7 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_alarm_info, menu);
+        getMenuInflater().inflate(R.menu.menu_alarm_creator, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
