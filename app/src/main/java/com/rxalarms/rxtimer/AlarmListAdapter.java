@@ -30,6 +30,13 @@ public class AlarmListAdapter extends BaseAdapter {
         mAlarm = alarm;
     }
 
+    /**
+     * How many items are in the
+     * data set represented by adapter
+     *
+     * @return size of list
+     */
+
     @Override
     public int getCount() {
         if (mAlarm != null) {
@@ -38,6 +45,13 @@ public class AlarmListAdapter extends BaseAdapter {
         return 0;
     }
 
+    /**
+     * Get the data item associated with the specified position in the data set
+     * @param position
+     * @return position of item in dataset
+     *          if dataset != null
+     *          else @ return null
+     */
     @Override
     public Object getItem(int position) {
         if (mAlarm != null) {
@@ -46,6 +60,13 @@ public class AlarmListAdapter extends BaseAdapter {
         return null;
     }
 
+    /**
+     *
+     * Get the row id associated with the specified position in the list.
+     * @param position
+     * @return  row id associated with the specified position in the list. ( if list is not null)
+     *              else @return 0
+     */
     @Override
     public long getItemId(int position) {
         if (mAlarm != null) {
@@ -61,6 +82,14 @@ public class AlarmListAdapter extends BaseAdapter {
     public void setAlarms(List<ModelAlarm> alarms) {
         this.mAlarm = alarms;
     }
+
+    /**
+     * Get a View that displays the data at the specified position in the data set
+     * @param position The position of the item
+     * @param convertView view
+     * @param parent parent eventually attached to
+     * @return convertView
+     */
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
