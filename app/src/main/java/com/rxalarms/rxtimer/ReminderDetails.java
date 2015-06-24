@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 /**
  * This class display details of alarm
+ *
  */
 
 public class ReminderDetails extends ActionBarActivity {

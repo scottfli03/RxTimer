@@ -112,8 +112,8 @@ public class ModelAlarm {
      * @param alarmHour The alarms hour
      */
     public void setAlarmHour(int alarmHour) {
-        if (alarmHour < 1 || alarmHour > 24) {
-            throw new IllegalArgumentException("The Hour must be between 1 and 24");
+        if (alarmHour < 0 || alarmHour > 23) {
+            throw new IllegalArgumentException("The Hour must be between 0 and 23");
         }
         this.alarmHour = alarmHour;
     }

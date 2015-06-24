@@ -55,7 +55,7 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
         setDateTimeField();
     }
 
-
+//get the fields and input types
     private void findViewsById() {
         fromDateEtxt = (EditText) findViewById(R.id.startDateSet);
         fromDateEtxt.setInputType(InputType.TYPE_NULL);
@@ -103,7 +103,7 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
-        timeEtxt.setText(hour + ":" + minute);
+        timeEtxt.setText(String.format("%02d : %02d", hour, minute));
         this.startHour = hour;
         this.startMin = minute;
         timePickerDialog = new TimePickerDialog(this,
@@ -113,7 +113,7 @@ public class alarmInfo extends ActionBarActivity implements View.OnClickListener
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minuteOfDay) {
                         // Display Selected time in textbox
-                        timeEtxt.setText(hourOfDay + ":" + minuteOfDay);
+                        timeEtxt.setText(String.format("%02d : %02d", hourOfDay, minuteOfDay));
                         startHour = hourOfDay;
                         startMin = minuteOfDay;
 
