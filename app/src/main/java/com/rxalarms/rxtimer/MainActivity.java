@@ -1,17 +1,14 @@
 package com.rxalarms.rxtimer;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v7.app.ActionBarActivity;
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TabHost;
 
-import java.lang.reflect.Type;
+import com.rxalarms.rxtimer.R;
+import com.rxalarms.rxtimer.AlarmCreator;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -45,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_add_reminder: {
-                Intent intent = new Intent(this, alarmInfo.class);
+                Intent intent = new Intent(this, AlarmCreator.class);
                 startActivity(intent);
                 break;
             }
@@ -56,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void addMedicine(View view) {
-        Intent in = new Intent(getApplicationContext(),alarmInfo.class);
+        Intent in = new Intent(getApplicationContext(),AlarmCreator.class);
         startActivity(in);
     }
 

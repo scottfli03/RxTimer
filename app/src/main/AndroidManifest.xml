@@ -24,7 +24,7 @@
 
         <!-- Starting activity -->
         <activity
-            android:name=".Reminder"
+            android:name=".AlarmList"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
         -->
 
         <activity
-            android:name=".alarmInfo"
+            android:name=".AlarmCreator"
             android:label="@string/title_activity_alarm_info" >
         </activity>
 
@@ -65,7 +65,7 @@
         </receiver>
 
         <activity
-            android:name=".Reminder_List_Item"
+            android:name=".UnusedFilesInIteration.Reminder_List_Item"
             android:label="@string/title_activity_reminder__list__item" >
         </activity>
     </application>

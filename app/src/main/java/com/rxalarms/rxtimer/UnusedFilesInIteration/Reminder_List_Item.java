@@ -1,23 +1,29 @@
-package com.rxalarms.rxtimer;
+package com.rxalarms.rxtimer.UnusedFilesInIteration;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.rxalarms.rxtimer.R;
 
+/**
+ * Created by Scott Flischel
+ *
+ * Controls the initial actions for the ListItemActivity
+ */
 public class Reminder_List_Item extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reminder_list_item);
+        setContentView(R.layout.activity_alarm_list_item);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_reminder__list__item, menu);
+        getMenuInflater().inflate(R.menu.menu_alarm_list_item, menu);
         return true;
     }
 

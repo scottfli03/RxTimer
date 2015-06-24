@@ -1,14 +1,11 @@
 package com.rxalarms.rxtimer;
 
-import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.ListView;
 
 import java.util.List;
@@ -19,7 +16,7 @@ import java.util.List;
  */
 
 
-public class Reminder extends ActionBarActivity {
+public class AlarmList extends ActionBarActivity {
     private AlarmListAdapter mAdapter;
     private AlarmDBHelper helper = new AlarmDBHelper(this);
     public final static int SAVED = 1;
@@ -28,7 +25,7 @@ public class Reminder extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reminder);
+        setContentView(R.layout.activity_alarm_list);
         mContext = this;
         ListView lv = (ListView) findViewById(android.R.id.list);
         mAdapter = new AlarmListAdapter(mContext, helper.getAlarms());
@@ -38,7 +35,7 @@ public class Reminder extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_reminder, menu);
+        getMenuInflater().inflate(R.menu.menu_alarm_list, menu);
         return true;
     }
 
@@ -51,7 +48,7 @@ public class Reminder extends ActionBarActivity {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.action_add_reminder: {
-                Intent intent = new Intent(this, alarmInfo.class);
+                Intent intent = new Intent(this, AlarmCreator.class);
                 startActivityForResult(intent, SAVED);
                 break;
             }

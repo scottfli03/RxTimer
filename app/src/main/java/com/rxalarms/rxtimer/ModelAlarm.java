@@ -162,7 +162,7 @@ public class ModelAlarm {
     }
 
     /**
-     * Returns a String representation of the Reminder information.
+     * Returns a String representation of the AlarmList information.
      * @return  The String representation of the reminder info
      */
     public String toStringReminderInfo() {

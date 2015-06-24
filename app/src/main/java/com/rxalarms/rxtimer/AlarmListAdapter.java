@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by Dimple Doshi on 6/20/2015.
@@ -96,7 +95,7 @@ public class AlarmListAdapter extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater lInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = lInflater.inflate(R.layout.activity_reminder_list_item, parent, false);
+            convertView = lInflater.inflate(R.layout.activity_alarm_list_item, parent, false);
         }
 
         ModelAlarm model = (ModelAlarm)getItem(position);
