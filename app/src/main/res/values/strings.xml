@@ -30,5 +30,6 @@
     <string name="title_activity_alarm__screen">Alarm_Screen</string>
     <string name="title_activity_alarm_screen">AlarmScreen</string>
     <string name="title_activity_reminder__list__item">Reminder_List_Item</string>
+    <string name="title_activity_alarm_details">Alarm Details</string>
 
 </resources>

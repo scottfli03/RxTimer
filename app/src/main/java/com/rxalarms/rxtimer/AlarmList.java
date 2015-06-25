@@ -95,4 +95,10 @@ public class AlarmList extends ActionBarActivity {
             mAdapter.notifyDataSetChanged();
         }
     }
+
+    public void startAlarmDetailsActivity(long id) {
+        Intent intent = new Intent(this, ReminderDetails.class);
+        intent.putExtra("id", id);
+        ((AlarmList) mContext).startActivityForResult(intent, 0);
+    }
 }

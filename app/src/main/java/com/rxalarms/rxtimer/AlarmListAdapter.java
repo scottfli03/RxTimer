@@ -1,6 +1,7 @@
 package com.rxalarms.rxtimer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ public class AlarmListAdapter extends BaseAdapter {
 
     /**
      * Get the data item associated with the specified position in the data set
-     * @param position
+     * @param position The position of the Alarm in the list
      * @return position of item in dataset
      *          if dataset != null
      *          else @ return null
@@ -62,9 +63,9 @@ public class AlarmListAdapter extends BaseAdapter {
     /**
      *
      * Get the row id associated with the specified position in the list.
-     * @param position
-     * @return  row id associated with the specified position in the list. ( if list is not null)
-     *              else @return 0
+     * @param position  The position of the Alarm in the list
+     * @return          row id associated with the specified position in the list. ( if list is not null)
+     *                  else @return 0
      */
     @Override
     public long getItemId(int position) {
@@ -89,7 +90,6 @@ public class AlarmListAdapter extends BaseAdapter {
      * @param parent parent eventually attached to
      * @return convertView
      */
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -105,6 +105,14 @@ public class AlarmListAdapter extends BaseAdapter {
 
         TextView tvReminderInfo = (TextView)convertView.findViewById(R.id.alarm_item_reminder);
         tvReminderInfo.setText(model.toStringReminderInfo());
+
+        convertView.setTag(model.getID());
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((AlarmList) context).startAlarmDetailsActivity((Long) v.getTag());
+            }
+        });
 
         return convertView;
     }

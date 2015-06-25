@@ -13,11 +13,11 @@ import android.view.MenuItem;
 
 public class ReminderDetails extends ActionBarActivity {
 
+    public ReminderDetails() {}
     /**
      * This method initialize activity
      * @param savedInstanceState Bundle - most recently supplied data
      */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
