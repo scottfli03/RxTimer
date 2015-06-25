@@ -1,5 +1,9 @@
 package com.rxalarms.rxtimer;
 
+import android.net.Uri;
+
+import java.util.Date;
+
 /**
  * Created by Scott Flischel on 6/17/15.
  *
@@ -14,6 +18,9 @@ public class ModelAlarm {
     private long id;
     private int alarmHour;
     private int alarmMinutes;
+    private Date startDate;
+    private Date endDate;
+    private Uri ringtone;
     private boolean isEnabled;
 
 
@@ -159,6 +166,54 @@ public class ModelAlarm {
      */
     public boolean getIsEnabled() {
         return isEnabled;
+    }
+
+    /**
+     * Returns the start date of the Alarm.
+     * @return  The start date of the Alarm
+     */
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * Sets the Alarm's start date
+     * @param startDate The start date
+     */
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * Returns the end date of the Alarm.
+     * @return  The end date of the Alarm
+     */
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    /**
+     * Sets the Alarm's end date.
+     * @param endDate The end date
+     */
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    /**
+     * Sets the ringtone.
+     * @param ringtone  The ringtone
+     */
+    public void setRingtone(Uri ringtone) {
+        this.ringtone = ringtone;
+    }
+
+    /**
+     * Gets the ringtone.
+     * @return  The ringtone
+     */
+    public Uri getRingtone() {
+        return this.ringtone;
     }
 
     /**
