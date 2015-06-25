@@ -12,7 +12,7 @@ import java.util.List;
 import static com.rxalarms.rxtimer.AlarmContract.*;
 
 /**
- * Created by Scott Flischel on 6/17/15.
+ * Created by Scott Flischel on 6/17/15
  *
  * Helps with the creation of the Alarm Table, and insertion, deletion, and update statements.
  */
