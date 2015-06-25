@@ -17,7 +17,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
 
     public static final String ID = "id";
     public static final String NAME = "name";
-    public static final String MEDICINE = "medicine";
+   // public static final String MEDICINE = "medicine";
     public static final String TIME_HOUR = "timeHour";
     public static final String TIME_MINUTE = "timeMinute";
    // public static final String TONE = "alarmTone";
@@ -47,7 +47,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
                 Calendar calendar = Calendar.getInstance();
 
 
-                final int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+                //final int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
                 final int nowHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
                 final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
 
@@ -71,9 +71,9 @@ public class AlarmManagerHelper extends BroadcastReceiver {
 
     /***
      * Method to handle new API changes for setting up the alarm
-     * @param context
-     * @param calendar
-     * @param pIntent
+     * @param context the current context
+     * @param calendar the current calendar
+     * @param pIntent the pending intent for this alarm
      */
     @SuppressLint("NewApi")
     private static void setAlarm(Context context, Calendar calendar, PendingIntent pIntent) {
@@ -106,6 +106,9 @@ public class AlarmManagerHelper extends BroadcastReceiver {
         }
     }
 
+    /*
+    this is the code that allows the alarms to work when the app is not active
+     */
     private static PendingIntent createPendingIntent(Context context, ModelAlarm model) {
         Intent intent = new Intent(context, AlarmService.class);
         intent.putExtra(ID, model.getID());

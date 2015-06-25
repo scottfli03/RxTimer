@@ -2,21 +2,21 @@ package com.rxalarms.rxtimer;
 
 import android.app.Activity;
 import android.content.Context;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+/***
+ * @author  Tracey Wilson 6/20/2015
+ * this activity sets up the screen that is displayed when the alarm goes off
+ *  and the action of the Dismiss button
+ */
 
 public class AlarmScreen extends Activity {
 
@@ -27,6 +27,10 @@ public class AlarmScreen extends Activity {
 
     private static final int WAKELOCK_TIMEOUT = 60 * 1000;
 
+    /***
+     * sets up the view and fills in the information to be displayed
+     * @param savedInstanceState the current state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +96,9 @@ public class AlarmScreen extends Activity {
         new Handler().postDelayed(releaseWakelock, WAKELOCK_TIMEOUT);
     }
 
+    /***
+     * this methods are used to wake the phone if it is locked or asleep
+     */
     @SuppressWarnings("deprecation")
     @Override
     protected void onResume() {

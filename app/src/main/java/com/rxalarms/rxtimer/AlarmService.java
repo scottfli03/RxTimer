@@ -6,6 +6,10 @@ import android.os.IBinder;
 
 /**
  * Created by Tracey on 6/20/2015.
+ *
+ * This service will start the alarm manager.
+ * This service should allow for a new activity to launch
+ * after an alarm has gone off
  */
 public class AlarmService extends Service {
 
@@ -16,6 +20,11 @@ public class AlarmService extends Service {
         return null;
     }
 
+    /***
+     * this method will call the setAlarms from the helper class
+     * it will set the next alarm
+     *
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
