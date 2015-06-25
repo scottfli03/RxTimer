@@ -2,6 +2,8 @@ package com.rxalarms.rxtimer;
 
 import android.provider.BaseColumns;
 
+import java.util.Date;
+
 /**
  * Created by Scott Flischel on 6/17/15.
  * Establishes a contract for the Database Build.
@@ -22,5 +24,8 @@ public final class AlarmContract {
         public final static String COLUMN_NAME_HOUR = "hour";
         public final static String COLUMN_NAME_MINUTES = "minutes";
         public final static String COLUMN_NAME_ISENABLED = "isEnabled";
+        public final static String COLUMN_NAME_START_DATE = "startDate";
+        public final static String COLUMN_NAME_END_DATE = "endDate";
+        public final static String COLUMN_NAME_RINGTONE = "ringtone";
     }
 }
