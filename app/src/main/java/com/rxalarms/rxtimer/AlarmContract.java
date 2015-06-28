@@ -25,6 +25,7 @@ public final class AlarmContract {
         public final static String COLUMN_NAME_MINUTES = "minutes";
         public final static String COLUMN_NAME_ISENABLED = "isEnabled";
         public final static String COLUMN_NAME_START_DATE = "startDate";
+        public final static String COLUMN_NAME_REPEAT = "repeat";
         public final static String COLUMN_NAME_END_DATE = "endDate";
         public final static String COLUMN_NAME_RINGTONE = "ringtone";
     }
