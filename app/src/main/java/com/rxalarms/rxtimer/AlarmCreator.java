@@ -1,11 +1,15 @@
 package com.rxalarms.rxtimer;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -13,6 +17,7 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.style.TtsSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +25,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 
@@ -30,6 +37,7 @@ import android.widget.TimePicker;
  * the alarm frequencey, etc.
  */
 public class AlarmCreator extends ActionBarActivity implements View.OnClickListener {
+    private EditText alarmTonetxt;
     private EditText fromDateEtxt;
     private EditText toDateEtxt;
     private EditText timeEtxt;
@@ -53,6 +61,17 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         findViewsById();
 
         setDateTimeField();
+
+
+        final EditText ringToneContainer = (EditText) findViewById(R.id.alarm_label_tone_selection);
+        ringToneContainer.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                startActivityForResult(intent, 1);
+            }
+        });
     }
 
 //get the fields and input types
@@ -128,6 +147,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_alarm_creator, menu);
         return super.onCreateOptionsMenu(menu);
+
     }
 
 
@@ -162,17 +182,21 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
             }
 
             case R.id.action_save_reminder: {
-                updateModelFromLayout();
-                AlarmManagerHelper.cancelAlarms(this);
+                if (isValid()) {
+                    updateModelFromLayout();
 
-                if (alarmDetails.getID() < 0) {
-                    dbHelper.createAlarm(alarmDetails);
-                } else {
-                    dbHelper.updateAlarm(alarmDetails);
+
+                    AlarmManagerHelper.cancelAlarms(this);
+
+                    if (alarmDetails.getID() < 0) {
+                        dbHelper.createAlarm(alarmDetails);
+                    } else {
+                        dbHelper.updateAlarm(alarmDetails);
+                    }
+                    AlarmManagerHelper.setAlarms(this);
+                    setResult(RESULT_OK);
+                    finish();
                 }
-                AlarmManagerHelper.setAlarms(this);
-                setResult(RESULT_OK);
-                finish();
             }
         }
         return super.onOptionsItemSelected(item);
@@ -196,6 +220,12 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         EditText instructions = (EditText) findViewById(R.id.specialInstText);
         alarmDetails.setInstructions(instructions.getText().toString());
 
+        EditText startDate = (EditText) findViewById(R.id.startDateSet);
+        alarmDetails.setStartDate((Date) startDate.getText());
+
+        EditText endDate = (EditText) findViewById(R.id.endDateSet);
+        alarmDetails.setEndDate((Date)endDate.getText());
+
         //work around to set the hour and minutes as separate fields in the Alarm Model object.
         alarmDetails.setAlarmHour(startHour);
         alarmDetails.setAlarmMinutes(startMin);
@@ -209,7 +239,70 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         }
 
 
-
-
     }
+
+    /***
+     * picking the alarm sound
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 1: {
+                    Uri name = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+                    alarmDetails.setRingtone(name);
+
+                    TextView txtToneSelection = (TextView) findViewById(R.id.alarm_label_tone_selection);
+                    txtToneSelection.setText(RingtoneManager.getRingtone(this, alarmDetails.getRingtone()).getTitle(this));
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+        }
+    }
+
+
+    /***
+     * this method validates the text fields and dates on the user input form
+     * @return true if all the data is correct false if one or more of the fields is not
+     * correct
+     */
+    private boolean isValid(){
+        EditText patient = (EditText) findViewById(R.id.EditTextName);
+        EditText medicine = (EditText) findViewById(R.id.medNameText);
+        EditText dosage = (EditText) findViewById(R.id.editTextDosage);
+        EditText instructions = (EditText) findViewById(R.id.specialInstText);
+        EditText startDate = (EditText) findViewById(R.id.startDateSet);
+        EditText endDate = (EditText) findViewById(R.id.endDateSet);
+
+        if( patient.getText().toString().length() == 0 ){
+            patient.setError( "This field is required!" );
+            return false;
+        } else if( medicine.getText().toString().length() == 0 ) {
+            medicine.setError("This field is required!");
+            return false;
+        } else if( dosage.getText().toString().length() == 0 ) {
+            dosage.setError("This field is required!");
+            return false;
+        } else if( instructions.getText().toString().length() == 0 ) {
+            instructions.setError( "This field is required!" );
+            return false;
+        }
+
+
+        Date current = new Date();
+        if (new Date().after((Date)startDate.getText())) {
+           return  false;
+        } else if (((Date) startDate.getText()).after((Date)endDate.getText())) {
+            return false;
+        }
+
+
+        return true;
+    }
+
 }

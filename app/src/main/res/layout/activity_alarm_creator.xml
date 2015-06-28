@@ -94,9 +94,9 @@
        android:layout_height="wrap_content"
        android:id="@+id/freqText"
        android:text="@string/frequency"
-        android:textSize="10pt"
-
-        android:layout_below="@+id/endDateTextView" />
+        android:textSize="8pt"
+        android:paddingTop="8dp"
+        android:layout_below="@+id/alarm_label_tone" />
 
     <Spinner
         android:id="@+id/SpinnerFeedbackType"
@@ -105,11 +105,11 @@
         android:entries="@array/frequencyList"
         android:textColor="@color/abc_background_cache_hint_selector_material_light"
         android:spinnerMode="dropdown"
-        android:layout_below="@+id/endDateTextView"
+        android:layout_below="@+id/alarm_label_tone_selection"
         android:paddingTop="8dp"
         android:layout_alignParentRight="true"
-        android:layout_alignLeft="@+id/endDateSet"
-        android:layout_alignStart="@+id/endDateSet" />
+        android:layout_alignLeft="@+id/alarm_label_tone_selection"
+        android:layout_alignStart="@+id/alarm_label_tone_selection" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -117,7 +117,7 @@
         android:id="@+id/startTimeTextView"
         android:text="@string/start_time"
         android:layout_below="@id/ReminderLabel"
-        android:textSize="10pt"
+        android:textSize="8pt"
         android:paddingTop="8dp"
         />
 
@@ -141,7 +141,7 @@
         android:id="@+id/startDateTextView"
         android:text="@string/start_date"
         android:layout_below="@id/startTimeTextView"
-        android:textSize="10pt"
+        android:textSize="8pt"
         android:paddingTop="8dp"
         />
 
@@ -163,7 +163,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/endDateTextView"
         android:text="@string/end_date"
-        android:textSize="10pt"
+        android:textSize="8pt"
         android:paddingTop="8dp"
         android:layout_below="@id/startDateTextView"
         />
@@ -196,10 +196,34 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editTextDosage"
-        android:layout_below="@+id/textView_dosage"
+        android:layout_below="@id/textView_dosage"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textColor="#ffffff"
         android:hint="dosage" />
+
+
+
+    <TextView
+        android:id="@+id/alarm_label_tone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/endDateTextView"
+        android:text="@string/alarm_tone"
+        android:textSize="18sp"
+        android:paddingTop="8dp"
+        />
+
+
+    <EditText
+        android:id="@+id/alarm_label_tone_selection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/alarm_tone_default"
+        android:textSize="14sp"
+        android:layout_below="@+id/endDateTextView"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@id/endDateSet"
+        android:layout_alignLeft="@id/endDateSet"/>
 
 </RelativeLayout>
