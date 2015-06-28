@@ -20,6 +20,7 @@ public class ModelAlarm {
     private int alarmMinutes;
     private Date startDate;
     private Date endDate;
+    private int repeat;
     private Uri ringtone;
     private boolean isEnabled;
 
@@ -36,6 +37,7 @@ public class ModelAlarm {
         this.alarmMinutes = 0;
         this.isEnabled = false;
         this.id = -1;
+        this.repeat = 0;
     }
 
     public void setID(long id) {
@@ -214,6 +216,16 @@ public class ModelAlarm {
      */
     public Uri getRingtone() {
         return this.ringtone;
+    }
+
+    /**
+     * Gets the hours that the alarm should wait to repeat
+     * @return the hours till the alarm repeats again.
+     */
+    public int getRepeat() { return this.repeat; }
+
+    public void setRepeat(int hours) {
+        this.repeat = hours;
     }
 
     /**
