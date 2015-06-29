@@ -221,10 +221,10 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         alarmDetails.setInstructions(instructions.getText().toString());
 
         EditText startDate = (EditText) findViewById(R.id.startDateSet);
-        alarmDetails.setStartDate((Date) startDate.getText());
+        //alarmDetails.setStartDate(startDate.getText());
 
         EditText endDate = (EditText) findViewById(R.id.endDateSet);
-        alarmDetails.setEndDate((Date)endDate.getText());
+        //alarmDetails.setEndDate((Date)endDate.getText());
 
         //work around to set the hour and minutes as separate fields in the Alarm Model object.
         alarmDetails.setAlarmHour(startHour);

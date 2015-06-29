@@ -1,5 +1,6 @@
 package com.rxalarms.rxtimer.Tests;
 
+import android.media.RingtoneManager;
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 
@@ -40,7 +41,11 @@ public class DBHelperTest extends AndroidTestCase {
         alarm.setInstructions("With 2 drinks");
         alarm.setAlarmHour(12);
         alarm.setAlarmMinutes(34);
+        alarm.setRepeat(6);
         alarm.setEnabled(true);
+        alarm.setStartDate(1444881600000L);
+        alarm.setEndDate(1444968000000L);
+        alarm.setRingtone(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
         return alarm;
     }
 
@@ -57,6 +62,9 @@ public class DBHelperTest extends AndroidTestCase {
         assertEquals("With 2 drinks", newAlarm.getInstructions());
         assertEquals(12, newAlarm.getHours());
         assertEquals(34, newAlarm.getMinutes());
+        assertEquals(1444881600000L, newAlarm.getStartDate());
+        assertEquals(1444968000000L, newAlarm.getEndDate());
+        assertEquals(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE), alarm.getRingtone());
         assertTrue(newAlarm.getIsEnabled());
     }
 
@@ -71,6 +79,8 @@ public class DBHelperTest extends AndroidTestCase {
         alarm.setInstructions("As much as possible.");
         alarm.setAlarmHour(11);
         alarm.setAlarmMinutes(11);
+        alarm.setStartDate(1442030400000L);
+        alarm.setEndDate(1476590400000L);
         alarm.setEnabled(false);
         long id = helper.createAlarm(alarm);
         ModelAlarm newAlarm = helper.getAlarm(id);
@@ -80,6 +90,8 @@ public class DBHelperTest extends AndroidTestCase {
         assertEquals("As much as possible.", newAlarm.getInstructions());
         assertEquals(11, newAlarm.getHours());
         assertEquals(11, newAlarm.getMinutes());
+        assertEquals(1442030400000L, newAlarm.getStartDate());
+        assertEquals(1476590400000L, newAlarm.getEndDate());
         assertEquals(false, newAlarm.getIsEnabled());
     }
 

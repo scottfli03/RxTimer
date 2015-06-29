@@ -5,8 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static com.rxalarms.rxtimer.AlarmContract.*;
@@ -18,7 +23,7 @@ import static com.rxalarms.rxtimer.AlarmContract.*;
  */
 public class AlarmDBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "alarm.db";
 
     public static final String SQL_CREATE_ALARM =
@@ -30,10 +35,18 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
                     Alarm.COLUMN_NAME_INSTRUCTIONS + " TEXT, " +
                     Alarm.COLUMN_NAME_HOUR + " INTEGER, " +
                     Alarm.COLUMN_NAME_MINUTES + " INTEGER, " +
-                    Alarm.COLUMN_NAME_ISENABLED + " BOOLEAN )";
+                    Alarm.COLUMN_NAME_START_DATE + " INTEGER, " +
+                    Alarm.COLUMN_NAME_END_DATE + " INTEGER, " +
+                    Alarm.COLUMN_NAME_REPEAT + " INTEGER, " +
+                    Alarm.COLUMN_NAME_RINGTONE + " TEXT, " +
+                    Alarm.COLUMN_NAME_ISENABLED + " BOOLEAN ) ";
 
     private static final String SQL_DELETE_ALARM =
             "DROP TABLE IF EXISTS " + Alarm.TABLE_NAME;
+
+    private static final String SQL_DELETE_ALL_ROWS =
+            "DELETE FROM " + Alarm.TABLE_NAME;
+
 
     /**
      * Constuctor that builds the helper to create, open and manage the Alarm Database.
@@ -60,6 +73,8 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //Uncomment below to delete all rows and start a fresh database.  Need to change version#.
+        //db.execSQL(SQL_DELETE_ALL_ROWS);
         db.execSQL(SQL_DELETE_ALARM);
         this.onCreate(db);
     }
@@ -71,6 +86,7 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
      * @return  A ModelAlarm Object
      */
     private ModelAlarm populateModel(Cursor c) {
+        //Retrieving info from each column and storing it in variables
         long id = c.getLong(c.getColumnIndex(Alarm._ID));
         String patient = c.getString(c.getColumnIndex(Alarm.COLUMN_NAME_PATIENT_NAME));
         String medicine = c.getString(c.getColumnIndex(Alarm.COLUMN_NAME_MEDICINE_NAME));
@@ -78,15 +94,12 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         String instructions = c.getString(c.getColumnIndex(Alarm.COLUMN_NAME_INSTRUCTIONS));
         int hour = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_HOUR));
         int minutes = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_MINUTES));
-        boolean isEnabled = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_ISENABLED)) == 0 ? false : true;
-
-        //I was directed to simplify here.  It needs to say if 0 false, else true.
-        //Just incase we run into an issue.
-        if (c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_ISENABLED)) != 0) {
-            isEnabled = true;
-        }
-        else isEnabled = false;
-
+        long startDate = c.getLong(c.getColumnIndex(Alarm.COLUMN_NAME_START_DATE));
+        long endDate = c.getLong(c.getColumnIndex(Alarm.COLUMN_NAME_END_DATE));
+        int repeat = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_REPEAT));
+        Uri ringtone = Uri.parse(c.getString(c.getColumnIndex(Alarm.COLUMN_NAME_RINGTONE)));
+        boolean isEnabled = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_ISENABLED)) != 0;
+        //Populating ModelAlarm from variables
         ModelAlarm alarm = new ModelAlarm();
         alarm.setID(id);
         alarm.setPatient(patient);
@@ -95,9 +108,20 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         alarm.setInstructions(instructions);
         alarm.setAlarmHour(hour);
         alarm.setAlarmMinutes(minutes);
+        alarm.setStartDate(startDate);
+        alarm.setEndDate(endDate);
+        alarm.setRingtone(ringtone);
+        alarm.setRepeat(repeat);
         alarm.setEnabled(isEnabled);
         return alarm;
     }
+
+    //private java.sql.Date convertStringToDBDate(String sDate) throws ParseException {
+        //SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        //Calendar pDate = Calendar.parse("20110210");
+        //java.sql.Date sqlDate = new java.sql.Date(pDate.getDate());
+        //return sqlDate;
+    //}
 
     /**
      * Returns a collection of values contained in an alarm which will be used ot populate the model.
@@ -113,6 +137,10 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         values.put(Alarm.COLUMN_NAME_INSTRUCTIONS, alarm.getInstructions());
         values.put(Alarm.COLUMN_NAME_HOUR, alarm.getHours());
         values.put(Alarm.COLUMN_NAME_MINUTES, alarm.getMinutes());
+        values.put(Alarm.COLUMN_NAME_START_DATE, alarm.getStartDate());
+        values.put(Alarm.COLUMN_NAME_END_DATE, alarm.getEndDate());
+        values.put(Alarm.COLUMN_NAME_RINGTONE, alarm.getRingtone().toString());
+        values.put(Alarm.COLUMN_NAME_REPEAT, alarm.getRepeat());
         values.put(Alarm.COLUMN_NAME_ISENABLED, alarm.getIsEnabled());
         return values;
     }
