@@ -2,7 +2,9 @@ package com.rxalarms.rxtimer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -41,7 +43,7 @@ public class AlarmScreen extends Activity {
         String name = getIntent().getStringExtra(AlarmManagerHelper.NAME);
         int timeHour = getIntent().getIntExtra(AlarmManagerHelper.TIME_HOUR, 0);
         int timeMinute = getIntent().getIntExtra(AlarmManagerHelper.TIME_MINUTE, 0);
-      //  String tone = getIntent().getStringExtra(AlarmManagerHelper.TONE);
+        String tone = getIntent().getStringExtra(AlarmManagerHelper.TONE);
 
         TextView tvName = (TextView) findViewById(R.id.alarm_screen_name);
         tvName.setText(name);
@@ -54,14 +56,14 @@ public class AlarmScreen extends Activity {
 
             @Override
             public void onClick(View view) {
-              //  mPlayer.stop();
+                mPlayer.stop();
 
                 finish();
             }
         });
 
         //Play alarm tone
-       /* mPlayer = new MediaPlayer();
+        mPlayer = new MediaPlayer();
         try {
             if (tone != null && !tone.equals("")) {
                 Uri toneUri = Uri.parse(tone);
@@ -75,7 +77,7 @@ public class AlarmScreen extends Activity {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
         //Ensure wakelock release
         Runnable releaseWakelock = new Runnable() {

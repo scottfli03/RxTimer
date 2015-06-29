@@ -38,6 +38,7 @@ public class ModelAlarm {
         this.isEnabled = false;
         this.id = -1;
         this.repeat = 0;
+
     }
 
     public void setID(long id) {

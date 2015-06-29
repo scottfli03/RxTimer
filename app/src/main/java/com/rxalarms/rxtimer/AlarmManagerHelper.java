@@ -20,7 +20,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
    // public static final String MEDICINE = "medicine";
     public static final String TIME_HOUR = "timeHour";
     public static final String TIME_MINUTE = "timeMinute";
-   // public static final String TONE = "alarmTone";
+    public static final String TONE = "alarmTone";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -116,7 +116,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
         //intent.putExtra(MEDICINE, model.getMedicine());
         intent.putExtra(TIME_HOUR, model.getHours());
         intent.putExtra(TIME_MINUTE, model.getMinutes());
-       // intent.putExtra(TONE, model.alarmTone.toString());
+        intent.putExtra(TONE, model.getRingtone().toString());
 
         return PendingIntent.getService(context, (int) model.getID(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }

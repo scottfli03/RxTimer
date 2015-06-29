@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 
 /***
@@ -43,6 +44,8 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
     private EditText timeEtxt;
     private int startHour;
     private int startMin;
+    private Date start;
+    private Date end;
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
     private TimePickerDialog timePickerDialog;
@@ -59,11 +62,10 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         dateFormatter = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
 
         findViewsById();
-
         setDateTimeField();
 
-
         final EditText ringToneContainer = (EditText) findViewById(R.id.alarm_label_tone_selection);
+        ringToneContainer.requestFocus();
         ringToneContainer.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -72,6 +74,8 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
                 startActivityForResult(intent, 1);
             }
         });
+
+
     }
 
 //get the fields and input types
@@ -87,6 +91,8 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         timeEtxt = (EditText) findViewById(R.id.startTime);
         toDateEtxt.setInputType(InputType.TYPE_NULL);
         timeEtxt.requestFocus();
+
+
     }
 
     /***
@@ -104,6 +110,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
+                start = newDate.getTime();
                 fromDateEtxt.setText(dateFormatter.format(newDate.getTime()));
             }
 
@@ -114,6 +121,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
+                end = newDate.getTime();
                 toDateEtxt.setText(dateFormatter.format(newDate.getTime()));
             }
 
@@ -221,10 +229,12 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         alarmDetails.setInstructions(instructions.getText().toString());
 
         EditText startDate = (EditText) findViewById(R.id.startDateSet);
-        //alarmDetails.setStartDate(startDate.getText());
+
+        alarmDetails.setStartDate(start.getTime());
 
         EditText endDate = (EditText) findViewById(R.id.endDateSet);
-        //alarmDetails.setEndDate((Date)endDate.getText());
+
+        alarmDetails.setEndDate(end.getTime());
 
         //work around to set the hour and minutes as separate fields in the Alarm Model object.
         alarmDetails.setAlarmHour(startHour);
@@ -294,10 +304,16 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         }
 
 
-        Date current = new Date();
-        if (new Date().after((Date)startDate.getText())) {
+
+       if (new Date().after(start)) {
+
+           Toast.makeText(getApplicationContext(), "Start Date cannot already be past",
+                   Toast.LENGTH_LONG).show();
            return  false;
-        } else if (((Date) startDate.getText()).after((Date)endDate.getText())) {
+        } else if (start.after(end)){
+
+           Toast.makeText(getApplicationContext(), "End Date cannot be before Start Date",
+                   Toast.LENGTH_LONG).show();
             return false;
         }
 

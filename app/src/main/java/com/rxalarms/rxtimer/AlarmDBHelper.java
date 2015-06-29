@@ -97,7 +97,10 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         long startDate = c.getLong(c.getColumnIndex(Alarm.COLUMN_NAME_START_DATE));
         long endDate = c.getLong(c.getColumnIndex(Alarm.COLUMN_NAME_END_DATE));
         int repeat = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_REPEAT));
-        Uri ringtone = Uri.parse(c.getString(c.getColumnIndex(Alarm.COLUMN_NAME_RINGTONE)));
+        //Tracey made change here
+        Uri ringtone = c.getString(c.getColumnIndex(Alarm.COLUMN_NAME_RINGTONE)) != "" ? Uri.parse(c.getString(c.getColumnIndex(Alarm.COLUMN_NAME_RINGTONE))) : null;
+
+
         boolean isEnabled = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_ISENABLED)) != 0;
         //Populating ModelAlarm from variables
         ModelAlarm alarm = new ModelAlarm();
@@ -139,7 +142,8 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         values.put(Alarm.COLUMN_NAME_MINUTES, alarm.getMinutes());
         values.put(Alarm.COLUMN_NAME_START_DATE, alarm.getStartDate());
         values.put(Alarm.COLUMN_NAME_END_DATE, alarm.getEndDate());
-        values.put(Alarm.COLUMN_NAME_RINGTONE, alarm.getRingtone().toString());
+        values.put(Alarm.COLUMN_NAME_RINGTONE, alarm.getRingtone() != null ?  alarm.getRingtone().toString() : ""); //Tracey Made change here
+
         values.put(Alarm.COLUMN_NAME_REPEAT, alarm.getRepeat());
         values.put(Alarm.COLUMN_NAME_ISENABLED, alarm.getIsEnabled());
         return values;
