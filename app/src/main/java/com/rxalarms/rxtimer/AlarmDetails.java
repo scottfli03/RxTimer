@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 /**
  * @Author Dimple Doshi
@@ -12,6 +13,16 @@ import android.view.MenuItem;
  */
 
 public class AlarmDetails extends ActionBarActivity {
+
+    private ModelAlarm alarmDetails;
+    private AlarmDBHelper dbHelper = new AlarmDBHelper(this);
+    private int startHour;
+    private int startMin;
+    private EditText pName;
+    private EditText mName;
+    private EditText dos;
+    private EditText inst;
+    private EditText time;
 
     public AlarmDetails() {}
     /**
@@ -22,7 +33,19 @@ public class AlarmDetails extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_details);
+
+        long id = getIntent().getExtras().getLong("id");
+
+        if (id < 0) {
+            finish();
+        }
+        else {
+            alarmDetails = dbHelper.getAlarm(id);
+        }
+        populateAlarmDetails();
     }
+
+
 
     /**
      * This method Initialize the contents of the Activity's standard options menu
@@ -57,4 +80,35 @@ public class AlarmDetails extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * This method display PatientName, MedicineNAme, Dosage,
+     * Special Instruction and time of selected alarm
+     */
+
+    private void populateAlarmDetails() {
+
+        pName = (EditText) findViewById(R.id.alarmDetails_patientName);
+        pName.setText(alarmDetails.getPatient());
+        pName.setEnabled(false);
+
+        mName = (EditText) findViewById(R.id.alarmsDetails_medName);
+        mName.setText(alarmDetails.getMedicine());
+        mName.setEnabled(false);
+
+        dos = (EditText) findViewById(R.id.alarmDetails_dosage);
+        dos.setText(alarmDetails.getDosage());
+        dos.setEnabled(false);
+
+        inst = (EditText) findViewById(R.id.alarmDetails_speInstruction);
+        inst.setText(alarmDetails.getInstructions());
+        inst.setEnabled(false);
+
+        time = (EditText) findViewById(R.id.alarmDetails_time);
+        time.setText(alarmDetails.getHours() + ":" + alarmDetails.getMinutes());
+        time.setEnabled(false);
+
+    }
+
+
 }

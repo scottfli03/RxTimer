@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".ReminderDetails"
+    tools:context=".AlarmDetails"
     >
 
     <TextView
@@ -21,7 +21,7 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2_patientName"
+        android:id="@+id/alarmDetails_patientName"
         android:layout_below="@+id/textView_PatientName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -34,14 +34,14 @@
         android:textSize="10pt"
         android:id="@+id/textView"
         android:background="#ffbbbbbb"
-        android:layout_below="@+id/editText2_patientName"
+        android:layout_below="@+id/alarmDetails_patientName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2_medName"
+        android:id="@+id/alarmsDetails_medName"
         android:text="medicine_name"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
@@ -54,14 +54,14 @@
         android:textSize="10pt"
         android:id="@+id/textView3_dosage"
         android:background="#ffbbbbbb"
-        android:layout_below="@+id/editText2_medName"
+        android:layout_below="@+id/alarmsDetails_medName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2_dosage"
+        android:id="@+id/alarmDetails_dosage"
         android:text="dosage"
         android:layout_below="@+id/textView3_dosage"
         android:layout_alignParentLeft="true"
@@ -74,7 +74,7 @@
         android:textSize="10pt"
         android:id="@+id/textView3_time"
         android:background="#ffbbbbbb"
-        android:layout_below="@+id/editText2_dosage"
+        android:layout_below="@+id/alarmDetails_dosage"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:inputType="time"
         android:ems="10"
-        android:id="@+id/editText2_time"
+        android:id="@+id/alarmDetails_time"
         android:layout_below="@+id/textView3_time"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -96,7 +96,7 @@
         android:textSize="10pt"
         android:id="@+id/textView3_instruction"
         android:background="#ffbbbbbb"
-        android:layout_below="@+id/editText2_time"
+        android:layout_below="@+id/alarmDetails_time"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/alarmDetails_speInstruction"
         android:layout_below="@+id/textView3_instruction"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
