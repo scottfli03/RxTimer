@@ -83,6 +83,11 @@ public class AlarmDetails extends ActionBarActivity {
 
             }
             case R.id.action_save_update_reminder: {
+                updatedAlarmDetails();
+                dbHelper = new AlarmDBHelper(this);
+                dbHelper.updateAlarm(alarmDetails);
+                setResult(RESULT_OK);
+                finish();
 
             }
             case R.id.action_delete_reminder: {
@@ -125,10 +130,33 @@ public class AlarmDetails extends ActionBarActivity {
     }
 
     /**
+     * This method will update alarm details after changes made to alarm
+     */
+    private void updatedAlarmDetails() {
+        pName= (EditText) findViewById(R.id.alarmDetails_patientName);
+        alarmDetails.setPatient(pName.getText().toString());
+
+        mName = (EditText) findViewById(R.id.alarmsDetails_medName);
+        alarmDetails.setMedicine(mName.getText().toString());
+
+        dos = (EditText) findViewById(R.id.alarmDetails_dosage);
+        alarmDetails.setDosage(dos.getText().toString());
+
+        inst = (EditText) findViewById(R.id.alarmDetails_speInstruction);
+        alarmDetails.setInstructions(inst.getText().toString());
+
+        time = (EditText) findViewById(R.id.alarmDetails_time);
+        alarmDetails.setAlarmHour(startHour);
+        alarmDetails.setAlarmMinutes(startMin);
+    }
+
+
+
+    /**
      * This method will make alarmDetails
      * editText enable to modify
      */
-    
+
     private void makeEditingEnable() {
 
         pName.setEnabled(true);
