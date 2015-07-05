@@ -103,7 +103,7 @@ public class AlarmList extends ActionBarActivity {
     }
 
     public void startAlarmDetailsActivity(long id) {
-        Intent intent = new Intent(this, ReminderDetails.class);
+        Intent intent = new Intent(this, AlarmDetails.class);
         intent.putExtra("id", id);
         ((AlarmList) mContext).startActivityForResult(intent, 0);
     }

@@ -11,9 +11,9 @@ import android.view.MenuItem;
  * It will give user an option to edit and delete alarm
  */
 
-public class ReminderDetails extends ActionBarActivity {
+public class AlarmDetails extends ActionBarActivity {
 
-    public ReminderDetails() {}
+    public AlarmDetails() {}
     /**
      * This method initialize activity
      * @param savedInstanceState Bundle - most recently supplied data
