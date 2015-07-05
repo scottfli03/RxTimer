@@ -33,12 +33,6 @@
             </intent-filter>
         </activity>
 
-        <!--
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
-        </activity>
-        -->
 
         <activity
             android:name=".AlarmCreator"
@@ -50,13 +44,7 @@
             android:label="@string/title_activity_alarm_details" >
         </activity>
 
-        <!--
-        <activity
-            android:name=".ReminderDetails"
-            android:label="@string/title_activity_reminder_details" >
-        </activity>
-        -->
-        <activity android:name=".AlarmScreen" >
+               <activity android:name=".AlarmScreen" >
         </activity>
 
         <service

@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import java.util.List;
@@ -33,6 +34,11 @@ public class AlarmList extends ActionBarActivity {
         setContentView(R.layout.activity_alarm_list);
         mContext = this;
         ListView lv = (ListView) findViewById(android.R.id.list);
+
+        //Set empty listView with message
+        View empty = findViewById(R.id.empty);
+        lv.setEmptyView(empty);
+
         mAdapter = new AlarmListAdapter(mContext, helper.getAlarms());
         lv.setAdapter(mAdapter);
     }

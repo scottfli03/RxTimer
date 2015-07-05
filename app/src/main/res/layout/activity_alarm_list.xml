@@ -9,6 +9,14 @@
     tools:context=".Reminder"
     >
 
+    <TextView android:id="@+id/empty"
+        android:layout_width="fill_parent"
+        android:layout_height="60px"
+        android:layout_centerInParent="true"
+        android:text="@string/empty_text"
+        android:gravity="center"
+        android:layout_centerHorizontal="true" />
+
     <ListView android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>

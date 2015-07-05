@@ -31,6 +31,7 @@
     <string name="title_activity_alarm_screen">AlarmScreen</string>
     <string name="title_activity_reminder__list__item">Reminder_List_Item</string>
     <string name="title_activity_alarm_details">Alarm Details</string>
+    <string name="empty_text">No Alarm Available</string>
 
     <string name="alarm_tone">Alarm Tone</string>
     <string name="alarm_tone_default">Select an alarm tone</string>
