@@ -71,15 +71,29 @@ public class AlarmDetails extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                finish();
+                break;
+            }
+            case R.id.action_edit_reminder: {
+                this.makeEditingEnable();
+                break;
+
+            }
+            case R.id.action_save_update_reminder: {
+
+            }
+            case R.id.action_delete_reminder: {
+                break;
+
+            }
+
         }
-
         return super.onOptionsItemSelected(item);
     }
+
 
     /**
      * This method display PatientName, MedicineNAme, Dosage,
@@ -108,6 +122,20 @@ public class AlarmDetails extends ActionBarActivity {
         time.setText(alarmDetails.getHours() + ":" + alarmDetails.getMinutes());
         time.setEnabled(false);
 
+    }
+
+    /**
+     * This method will make alarmDetails
+     * editText enable to modify
+     */
+    
+    private void makeEditingEnable() {
+
+        pName.setEnabled(true);
+        mName.setEnabled(true);
+        dos.setEnabled(true);
+        inst.setEnabled(true);
+        time.setEnabled(true);
     }
 
 

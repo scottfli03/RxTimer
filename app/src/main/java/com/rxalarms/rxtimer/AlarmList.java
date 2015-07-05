@@ -102,6 +102,11 @@ public class AlarmList extends ActionBarActivity {
         }
     }
 
+    /**
+     * This method will start new activity
+     * on item click on listview
+     * @param id id of the selected alarm
+     */
     public void startAlarmDetailsActivity(long id) {
         Intent intent = new Intent(this, AlarmDetails.class);
         intent.putExtra("id", id);

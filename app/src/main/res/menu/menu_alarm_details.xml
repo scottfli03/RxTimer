@@ -32,7 +32,7 @@
  Add Save button on action bar on AlarmInfo
  -->
     <item
-        android:id="@+id/action_save_reminder"
+        android:id="@+id/action_save_update_reminder"
         android:icon="@drawable/ic_save_white_24dp"
         android:title="@string/action_save"
         android:orderInCategory="100"
