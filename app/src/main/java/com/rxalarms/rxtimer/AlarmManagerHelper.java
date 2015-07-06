@@ -37,37 +37,54 @@ public class AlarmManagerHelper extends BroadcastReceiver {
 
         AlarmDBHelper dbHelper = new AlarmDBHelper(context);
 
-        List<ModelAlarm> alarms = dbHelper.getAlarms();
+        List<ModelAlarm> alarms =  dbHelper.getAlarms();
+
+        for (ModelAlarm alarm : alarms) {
+            if (alarm.getIsEnabled()) {
+
+                PendingIntent pIntent = createPendingIntent(context, alarm);
+
+                Calendar calendar = Calendar.getInstance();
 
 
-        if (alarms != null) {
-            for (ModelAlarm alarm : alarms) {
-                if (alarm.getIsEnabled()) {
-
-                    PendingIntent pIntent = createPendingIntent(context, alarm);
-
-                    Calendar calendar = Calendar.getInstance();
+                //final int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+                final int nowHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+                final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
 
 
-                    //final int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-                    final int nowHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                    final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
-
-
-                    calendar.set(Calendar.HOUR_OF_DAY, alarm.getHours());
-                    calendar.set(Calendar.MINUTE, alarm.getMinutes());
-                    calendar.set(Calendar.SECOND, 00);
-
-                    //makes sure the time is not already past
-
-                    if (!(alarm.getHours() < nowHour) &&
-                            !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
-
-
-                        setAlarm(context, calendar, pIntent);
-
+                calendar.set(Calendar.HOUR_OF_DAY, alarm.getHours());
+                calendar.set(Calendar.MINUTE, alarm.getMinutes());
+                calendar.set(Calendar.SECOND, 00);
+                switch (alarm.getRepeat()) {
+                    case 4: {
+                        if (!(alarm.getHours() < nowHour) && !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
+                            setAlarm4(context, calendar, pIntent);
+                            break;
+                        }
+                    }
+                    case 8: {
+                        if (!(alarm.getHours() < nowHour) && !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
+                            setAlarm8(context, calendar, pIntent);
+                            break;
+                        }
+                    }
+                    case 12: {
+                        if (!(alarm.getHours() < nowHour) && !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
+                            setAlarm12(context, calendar, pIntent);
+                            break;
+                        }
+                    }
+                    case 24: {
+                        if (!(alarm.getHours() < nowHour) && !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
+                            setAlarm(context, calendar, pIntent);
+                            break;
+                        }
                     }
                 }
+               /* //makes sure the time is not already past
+                if (!(alarm.getHours() < nowHour) && !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
+                    setAlarm4(context, calendar, pIntent);
+                }*/
             }
         }
     }
@@ -87,6 +104,60 @@ public class AlarmManagerHelper extends BroadcastReceiver {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
         }
     }
+
+    //for every 8 hours
+    @SuppressLint("NewApi")
+    private static void setAlarm8(Context context, Calendar calendar, PendingIntent pIntent) {
+        long time = calendar.getTimeInMillis();
+        long repeat8 =  8*60*1000; //8 minutes for testing
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager1 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), repeat8, pIntent);
+
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
+            alarmManager1.set(AlarmManager.RTC_WAKEUP, repeat8, pIntent);
+        }
+    }
+
+    //for every 4 hours
+    @SuppressLint("NewApi")
+    private static void setAlarm4(Context context, Calendar calendar, PendingIntent pIntent) {
+        long time = calendar.getTimeInMillis();
+        long repeat4 =  4*60*1000; //4 mins for testing
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager1 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), repeat4, pIntent);
+
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
+            alarmManager1.set(AlarmManager.RTC_WAKEUP, repeat4, pIntent);
+        }
+    }
+//for every 12 hours
+   // @SuppressLint("NewApi")
+    private static void setAlarm12(Context context, Calendar calendar, PendingIntent pIntent) {
+        long test = calendar.getTimeInMillis();
+
+        long repeat12 =  12*60*1000 ;//12 minutes right now
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager1 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), repeat12, pIntent);
+            //alarmManager1.setInexactRepeating(AlarmManager.RTC_WAKEUP, repeat12, AlarmManager.INTERVAL_DAY, pIntent);
+
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
+            alarmManager1.set(AlarmManager.RTC_WAKEUP, repeat12, pIntent);
+        }
+    }
+
+
 
     /***
      * Cancels alarms no longer in use
