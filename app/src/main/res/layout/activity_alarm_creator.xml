@@ -74,7 +74,7 @@
         android:text="@string/remind_title"
         android:textColor="#ffffffff"
         android:layout_below="@id/specialInstText"
-    />
+        />
 
     <CheckBox
         android:id="@+id/CheckBoxResponse"
@@ -85,18 +85,19 @@
         android:layout_below="@id/specialInstText"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/ReminderLabel"
-    />
+        />
 
 
 
     <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:id="@+id/freqText"
-       android:text="@string/frequency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/freqText"
+        android:text="@string/frequency"
         android:textSize="8pt"
         android:paddingTop="8dp"
-        android:layout_below="@+id/alarm_label_tone" />
+        android:layout_alignParentBottom="true"
+        />
 
     <Spinner
         android:id="@+id/SpinnerFeedbackType"
@@ -105,11 +106,11 @@
         android:entries="@array/frequencyList"
         android:textColor="@color/abc_background_cache_hint_selector_material_light"
         android:spinnerMode="dropdown"
-        android:layout_below="@+id/alarm_label_tone_selection"
+        android:layout_alignParentBottom="true"
         android:paddingTop="8dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignLeft="@+id/alarm_label_tone_selection"
-        android:layout_alignStart="@+id/alarm_label_tone_selection" />
+
+        android:layout_alignLeft="@+id/endDateSet"
+        android:layout_alignStart="@+id/endDateSet" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -179,7 +180,7 @@
         android:layout_alignParentRight="true"
         android:inputType="date"
         android:focusable="false"
-     />
+        />
 
     <TextView
         android:id="@+id/textView_dosage"
@@ -204,26 +205,33 @@
 
 
 
-    <TextView
-        android:id="@+id/alarm_label_tone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/endDateTextView"
-        android:text="@string/alarm_tone"
-        android:textSize="18sp"
-        android:paddingTop="8dp"
-        />
 
 
-    <EditText
-        android:id="@+id/alarm_label_tone_selection"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/alarm_ringtone_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/alarm_tone_default"
-        android:textSize="14sp"
-        android:layout_below="@+id/endDateTextView"
-        android:layout_alignParentRight="true"
-        android:layout_alignStart="@id/endDateSet"
-        android:layout_alignLeft="@id/endDateSet"/>
+        android:layout_below="@id/endDateTextView"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/alarm_label_tone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/alarm_tone"
+            android:textSize="18sp"
+            android:paddingTop="8dp"
+            android:layout_weight="2"
+            />
+
+        <TextView
+            android:id="@+id/alarm_label_tone_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/alarm_tone_default"
+            android:textSize="14sp"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
 
 </RelativeLayout>

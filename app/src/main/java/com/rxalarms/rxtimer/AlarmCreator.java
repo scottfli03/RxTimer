@@ -26,6 +26,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -44,8 +45,11 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
     private EditText timeEtxt;
     private int startHour;
     private int startMin;
+    private Date today;
+
     private Date start;
     private Date end;
+
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
     private TimePickerDialog timePickerDialog;
@@ -60,11 +64,12 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
 
         alarmDetails = new ModelAlarm();
         dateFormatter = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+        today = new Date();
 
         findViewsById();
         setDateTimeField();
 
-        final EditText ringToneContainer = (EditText) findViewById(R.id.alarm_label_tone_selection);
+        final LinearLayout ringToneContainer = (LinearLayout) findViewById(R.id.alarm_ringtone_container);
         ringToneContainer.requestFocus();
         ringToneContainer.setOnClickListener(new View.OnClickListener() {
 
@@ -78,14 +83,16 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
 
     }
 
-//get the fields and input types
+    //get the fields and input types
     private void findViewsById() {
         fromDateEtxt = (EditText) findViewById(R.id.startDateSet);
         fromDateEtxt.setInputType(InputType.TYPE_NULL);
+
         fromDateEtxt.requestFocus();
 
         toDateEtxt = (EditText) findViewById(R.id.endDateSet);
         toDateEtxt.setInputType(InputType.TYPE_NULL);
+
         toDateEtxt.requestFocus();
 
         timeEtxt = (EditText) findViewById(R.id.startTime);
@@ -248,6 +255,17 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
             alarmDetails.setEnabled(true);
         }
 
+        Spinner repeatTime = (Spinner) findViewById(R.id.SpinnerFeedbackType);
+        String repeat = repeatTime.getSelectedItem().toString();
+        if (repeat.equalsIgnoreCase("4 hours")){
+            alarmDetails.setRepeat(4);
+        } else if (repeat.equalsIgnoreCase("8 hours")){
+            alarmDetails.setRepeat(8);
+        } else if (repeat.equalsIgnoreCase("12 hours")) {
+            alarmDetails.setRepeat(12);
+        } else {
+            alarmDetails.setRepeat(24);
+        }
 
     }
 
@@ -289,6 +307,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         EditText startDate = (EditText) findViewById(R.id.startDateSet);
         EditText endDate = (EditText) findViewById(R.id.endDateSet);
 
+
         if( patient.getText().toString().length() == 0 ){
             patient.setError( "This field is required!" );
             return false;
@@ -305,15 +324,15 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
 
 
 
-       if (new Date().after(start)) {
+        if (today.after(start)) {
 
-           Toast.makeText(getApplicationContext(), "Start Date cannot already be past",
-                   Toast.LENGTH_LONG).show();
-           return  false;
+            Toast.makeText(getApplicationContext(), "Start Date cannot already be past",
+                    Toast.LENGTH_LONG).show();
+            return  false;
         } else if (start.after(end)){
 
-           Toast.makeText(getApplicationContext(), "End Date cannot be before Start Date",
-                   Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "End Date cannot be before Start Date",
+                    Toast.LENGTH_LONG).show();
             return false;
         }
 
