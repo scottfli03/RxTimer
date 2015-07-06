@@ -152,6 +152,7 @@ public class AlarmDetails extends ActionBarActivity {
         time = (EditText) findViewById(R.id.alarmDetails_time);
         alarmDetails.setAlarmHour(hr);
         alarmDetails.setAlarmMinutes(min);
+        onBackPressed();
     }
 
 
