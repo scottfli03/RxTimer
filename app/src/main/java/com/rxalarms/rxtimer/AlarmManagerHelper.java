@@ -37,33 +37,36 @@ public class AlarmManagerHelper extends BroadcastReceiver {
 
         AlarmDBHelper dbHelper = new AlarmDBHelper(context);
 
-        List<ModelAlarm> alarms =  dbHelper.getAlarms();
-
-        for (ModelAlarm alarm : alarms) {
-            if (alarm.getIsEnabled()) {
-
-                PendingIntent pIntent = createPendingIntent(context, alarm);
-
-                Calendar calendar = Calendar.getInstance();
+        List<ModelAlarm> alarms = dbHelper.getAlarms();
 
 
-                //final int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-                final int nowHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
+        if (alarms != null) {
+            for (ModelAlarm alarm : alarms) {
+                if (alarm.getIsEnabled()) {
+
+                    PendingIntent pIntent = createPendingIntent(context, alarm);
+
+                    Calendar calendar = Calendar.getInstance();
 
 
-                calendar.set(Calendar.HOUR_OF_DAY, alarm.getHours());
-                calendar.set(Calendar.MINUTE, alarm.getMinutes());
-                calendar.set(Calendar.SECOND, 00);
-
-                //makes sure the time is not already past
-
-                if (!(alarm.getHours() < nowHour) &&
-                        !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
+                    //final int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+                    final int nowHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+                    final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
 
 
-                    setAlarm(context, calendar, pIntent);
+                    calendar.set(Calendar.HOUR_OF_DAY, alarm.getHours());
+                    calendar.set(Calendar.MINUTE, alarm.getMinutes());
+                    calendar.set(Calendar.SECOND, 00);
 
+                    //makes sure the time is not already past
+
+                    if (!(alarm.getHours() < nowHour) &&
+                            !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
+
+
+                        setAlarm(context, calendar, pIntent);
+
+                    }
                 }
             }
         }

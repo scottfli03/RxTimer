@@ -11,6 +11,7 @@ import com.rxalarms.rxtimer.ModelAlarm;
  */
 public class ModelAlarmTest extends InstrumentationTestCase {
 
+    //TODO: Add tests for set/get repeat, ringtone, startDate, and endDate
     /**
      * Tests when Sam is set for the patient name that Same is returned.
      * @throws Exception
