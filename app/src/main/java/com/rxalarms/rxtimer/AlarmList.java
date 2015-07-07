@@ -100,6 +100,11 @@ public class AlarmList extends ActionBarActivity {
             mAdapter.setAlarms(alarms);
             mAdapter.notifyDataSetChanged();
         }
+        else {
+            List<ModelAlarm> alarms = helper.getAlarms();
+            mAdapter.setAlarms(alarms);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     /**

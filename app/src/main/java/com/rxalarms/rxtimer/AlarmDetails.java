@@ -1,10 +1,13 @@
 package com.rxalarms.rxtimer;
 
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * @Author Dimple Doshi
@@ -16,13 +19,14 @@ public class AlarmDetails extends ActionBarActivity {
 
     private ModelAlarm alarmDetails;
     private AlarmDBHelper dbHelper = new AlarmDBHelper(this);
-    private int startHour;
-    private int startMin;
+    private int hr;
+    private int min;
     private EditText pName;
     private EditText mName;
     private EditText dos;
     private EditText inst;
     private EditText time;
+    private long id;
 
     public AlarmDetails() {}
     /**
@@ -34,7 +38,7 @@ public class AlarmDetails extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_details);
 
-        long id = getIntent().getExtras().getLong("id");
+        id = getIntent().getExtras().getLong("id");
 
         if (id < 0) {
             finish();
@@ -44,8 +48,6 @@ public class AlarmDetails extends ActionBarActivity {
         }
         populateAlarmDetails();
     }
-
-
 
     /**
      * This method Initialize the contents of the Activity's standard options menu
@@ -88,9 +90,11 @@ public class AlarmDetails extends ActionBarActivity {
                 dbHelper.updateAlarm(alarmDetails);
                 setResult(RESULT_OK);
                 finish();
+                break;
 
             }
             case R.id.action_delete_reminder: {
+                deleteAlarm(id);
                 break;
 
             }
@@ -146,8 +150,9 @@ public class AlarmDetails extends ActionBarActivity {
         alarmDetails.setInstructions(inst.getText().toString());
 
         time = (EditText) findViewById(R.id.alarmDetails_time);
-        alarmDetails.setAlarmHour(startHour);
-        alarmDetails.setAlarmMinutes(startMin);
+        alarmDetails.setAlarmHour(hr);
+        alarmDetails.setAlarmMinutes(min);
+        onBackPressed();
     }
 
 
@@ -165,6 +170,28 @@ public class AlarmDetails extends ActionBarActivity {
         inst.setEnabled(true);
         time.setEnabled(true);
     }
+
+    /**
+     * This method will delete alarm
+     * @param id id of the selected alarm
+     */
+    private void deleteAlarm(long id) {
+        final long alarmId = id;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please confirm").setTitle("Delete Alarm ?")
+                .setCancelable(true).setNegativeButton("Cancel", null)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dbHelper.deleteAlarm(alarmId);
+                        Toast.makeText(getApplicationContext(), " Alarm has been Deleted", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+
+                    }
+                }).show();
+
+    }
+
 
 
 }
