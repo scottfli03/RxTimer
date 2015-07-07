@@ -80,6 +80,7 @@
         android:id="@+id/CheckBoxResponse"
         android:layout_height="wrap_content"
         android:text="Alarm on"
+        android:checked="true"
         android:layout_width="fill_parent"
         android:textColor="#fffbffff"
         android:layout_below="@id/specialInstText"
