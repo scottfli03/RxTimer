@@ -45,6 +45,10 @@ public class AlarmScreen extends Activity {
         final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
         String name = getIntent().getStringExtra(AlarmManagerHelper.NAME);
         String tone = getIntent().getStringExtra(AlarmManagerHelper.TONE);
+        final long alarmId = getIntent().getLongExtra(AlarmManagerHelper.ID, 0);
+
+        final AlarmDBHelper dbHelper = new AlarmDBHelper(this);
+        final ModelAlarm alarm = dbHelper.getAlarm(alarmId);
 
         TextView tvName = (TextView) findViewById(R.id.alarm_screen_name);
         tvName.setText(name);
@@ -63,6 +67,19 @@ public class AlarmScreen extends Activity {
             @Override
             public void onClick(View view) {
                 mPlayer.stop();
+                if(alarm.getRepeat()!= 24){
+                    if ((alarm.getMinutes() + alarm.getRepeat()) < 60) {
+                        alarm.setAlarmMinutes(alarm.getMinutes() + alarm.getRepeat());
+
+
+                    } else {
+                        alarm.setAlarmMinutes(alarm.getMinutes()+ alarm.getRepeat() - 60);
+                        alarm.setAlarmHour(alarm.getHours()+1);
+
+                    }
+                }
+
+                dbHelper.deleteAlarm(alarmId);
 
                 finish();
             }
@@ -102,6 +119,7 @@ public class AlarmScreen extends Activity {
         };
 
         new Handler().postDelayed(releaseWakelock, WAKELOCK_TIMEOUT);
+        setResult(RESULT_OK);
     }
 
     /***
