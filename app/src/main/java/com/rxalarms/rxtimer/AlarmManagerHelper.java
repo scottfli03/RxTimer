@@ -74,17 +74,18 @@ public class AlarmManagerHelper extends BroadcastReceiver {
         }
     }
 
-
     /***
+     * for testing only to be removed from final version
      * 4 repeat method
-     *
+     * this method will allow the alarm to repeat every 4 hours
      *
      */
+
 
     private static void repeat4(ModelAlarm alarm, Calendar calendar, Context context){
 
         long time = calendar.getTimeInMillis();
-        long repeatTime =  4*60*1000;
+        long repeatTime =  4*60*1000; // minutes right now for easier testing
 
         AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmService.class);
@@ -101,14 +102,14 @@ public class AlarmManagerHelper extends BroadcastReceiver {
 
     /***
      * 8 repeat method
-     *
+     * this will let the alarm repeat every 8 hours
      *
      */
 
     private static void repeat8(ModelAlarm alarm, Calendar calendar, Context context){
 
         long time = calendar.getTimeInMillis();
-        long repeatTime =  8*60*1000;
+        long repeatTime =  8*60*1000; // minutes right now for easier testing
 
         AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmService.class);
@@ -125,14 +126,14 @@ public class AlarmManagerHelper extends BroadcastReceiver {
 
     /***
      *12repeat method
-     *
+     *this will let the alarm repeat every 12 hours
      *
      */
 
     private static void repeat12(ModelAlarm alarm, Calendar calendar, Context context){
 
         long time = calendar.getTimeInMillis();
-        long repeatTime =  12*60*1000;
+        long repeatTime =  12*60*1000; // minutes right now for easier testing
 
         AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmService.class);
@@ -140,6 +141,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
         intent.putExtra(NAME, alarm.toStringReminderInfo());
         intent.putExtra(TIME_HOUR, alarm.getHours());
         intent.putExtra(TIME_MINUTE, alarm.getMinutes());
+
         intent.putExtra(TONE, alarm.getRingtone().toString());
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -148,11 +150,15 @@ public class AlarmManagerHelper extends BroadcastReceiver {
     }
 
 
-
+    /***
+     *24 repeat method
+     *this will let the alarm repeat every 24 hours
+     *
+     */
     private static void repeat24(ModelAlarm alarm, Calendar calendar, Context context){
 
         long time = calendar.getTimeInMillis();
-        long repeatTime =  24*60*1000;
+        long repeatTime =  24*60*1000; // minutes for testing
 
         AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmService.class);

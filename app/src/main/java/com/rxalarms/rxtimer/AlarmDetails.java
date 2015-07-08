@@ -1,12 +1,18 @@
 package com.rxalarms.rxtimer;
 
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 /**
@@ -27,6 +33,7 @@ public class AlarmDetails extends ActionBarActivity {
     private EditText inst;
     private EditText time;
     private long id;
+    private TimePickerDialog timePickerDialog;
 
     public AlarmDetails() {}
     /**
@@ -81,15 +88,18 @@ public class AlarmDetails extends ActionBarActivity {
             }
             case R.id.action_edit_reminder: {
                 this.makeEditingEnable();
+                this.editTime();
                 break;
 
             }
             case R.id.action_save_update_reminder: {
-                updatedAlarmDetails();
-                dbHelper = new AlarmDBHelper(this);
-                dbHelper.updateAlarm(alarmDetails);
-                setResult(RESULT_OK);
-                finish();
+                if ( verifyRequiredFiled()) {
+                    updatedAlarmDetails();
+                    dbHelper = new AlarmDBHelper(this);
+                    dbHelper.updateAlarm(alarmDetails);
+                    setResult(RESULT_OK);
+                    finish();
+                }
                 break;
 
             }
@@ -130,6 +140,15 @@ public class AlarmDetails extends ActionBarActivity {
         time = (EditText) findViewById(R.id.alarmDetails_time);
         time.setText(alarmDetails.getHours() + ":" + alarmDetails.getMinutes());
         time.setEnabled(false);
+        time.requestFocus();
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == time) {
+                    timePickerDialog.show();
+                }
+            }
+        });
 
     }
 
@@ -184,8 +203,10 @@ public class AlarmDetails extends ActionBarActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dbHelper.deleteAlarm(alarmId);
-                        Toast.makeText(getApplicationContext(), " Alarm has been Deleted", Toast.LENGTH_SHORT).show();
                         onBackPressed();
+                        Toast toast = Toast.makeText(getApplicationContext(), " Alarm has been Deleted", Toast.LENGTH_SHORT);
+                        toast.show();
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
 
                     }
                 }).show();
@@ -193,5 +214,66 @@ public class AlarmDetails extends ActionBarActivity {
     }
 
 
+    /**
+     * This method will set timepicker with given
+     * alarm time
+     *
+     */
+    private void editTime() {
+        int hrs = alarmDetails.getHours();
+        int mins = alarmDetails.getMinutes();
+
+        this.hr = hrs;
+        this.min = mins;
+        this.timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hour, int minute) {
+                        time.setText(String.format("%02d : %02d", hour, minute));
+                        hr = hour;
+                        min = minute;
+
+                    }
+                }, hr, mins, false);
+
+    }
+
+    /**
+     * This method validate that filed are not empty before
+     * submitting updates
+     * make user to input values for all field
+     * @return true if all required filed present
+     */
+
+    private boolean verifyRequiredFiled() {
+        EditText patient = (EditText) findViewById(R.id.alarmDetails_patientName);
+        EditText medicine = (EditText) findViewById(R.id.alarmsDetails_medName);
+        EditText dosage = (EditText) findViewById(R.id.alarmDetails_dosage);
+        EditText time = (EditText) findViewById(R.id.alarmDetails_time);
+        EditText specialInstruction = (EditText) findViewById(R.id.alarmDetails_speInstruction);
+
+        if( patient.getText().toString().length() == 0 ){
+            patient.setError( "This field is required!" );
+            return false;
+        } else if( medicine.getText().toString().length() == 0 ) {
+            medicine.setError("This field is required!");
+            return false;
+        } else if( dosage.getText().toString().length() == 0 ) {
+            dosage.setError("This field is required!");
+            return false;
+        } else if( specialInstruction.getText().toString().length() == 0 ) {
+            specialInstruction.setError("This field is required!");
+            return false;
+        } else if (time.getText().toString().length()==0) {
+            time.setError("This field is required!");
+            return false;
+
+        }
+
+
+
+        return true;
+
+    }
 
 }

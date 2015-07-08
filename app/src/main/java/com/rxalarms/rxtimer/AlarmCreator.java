@@ -329,7 +329,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
             Toast.makeText(getApplicationContext(), "Start Date cannot already be past",
                     Toast.LENGTH_LONG).show();
             return  false;
-        } else if (start.after(end)){
+        } else if (start.getTime() > (end.getTime()+600000)){
 
             Toast.makeText(getApplicationContext(), "End Date cannot be before Start Date",
                     Toast.LENGTH_LONG).show();
