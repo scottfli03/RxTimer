@@ -49,7 +49,10 @@ public class AlarmManagerHelper extends BroadcastReceiver {
                 calendar.set(Calendar.HOUR_OF_DAY, alarm.getHours());
                 calendar.set(Calendar.MINUTE, alarm.getMinutes());
                 calendar.set(Calendar.SECOND, 00);
+
+                PendingIntent pIntent = createPendingIntent(context,alarm);
                 if (!(alarm.getHours() < nowHour) && !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
+                   /* code from past attempt will remove if still not needed in iteration 3
                    switch(alarm.getRepeat()){
                        case 4: {
                            repeat4(alarm,calendar,context);
@@ -66,126 +69,28 @@ public class AlarmManagerHelper extends BroadcastReceiver {
                        case 24: {
                            repeat24(alarm, calendar, context);
                            break;
-                       }
+                       }*/
+                    setAlarm(context, calendar,pIntent);
 
-                   }
                 }
             }
         }
     }
 
-    /***
-     * for testing only to be removed from final version
-     * 4 repeat method
-     * this method will allow the alarm to repeat every 4 hours
-     *
-     */
-
-
-    private static void repeat4(ModelAlarm alarm, Calendar calendar, Context context){
-
-        long time = calendar.getTimeInMillis();
-        long repeatTime =  4*60*1000; // minutes right now for easier testing
-
-        AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmService.class);
-        intent.putExtra(ID, alarm.getID());
-        intent.putExtra(NAME, alarm.toStringReminderInfo());
-        intent.putExtra(TIME_HOUR, alarm.getHours());
-        intent.putExtra(TIME_MINUTE, alarm.getMinutes());
-        intent.putExtra(TONE, alarm.getRingtone().toString());
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        mgrAlarm.setRepeating(AlarmManager.RTC_WAKEUP, time , repeatTime, pendingIntent);
-
-        }
-
-    /***
-     * 8 repeat method
-     * this will let the alarm repeat every 8 hours
-     *
-     */
-
-    private static void repeat8(ModelAlarm alarm, Calendar calendar, Context context){
-
-        long time = calendar.getTimeInMillis();
-        long repeatTime =  8*60*1000; // minutes right now for easier testing
-
-        AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmService.class);
-        intent.putExtra(ID, alarm.getID());
-        intent.putExtra(NAME, alarm.toStringReminderInfo());
-        intent.putExtra(TIME_HOUR, alarm.getHours());
-        intent.putExtra(TIME_MINUTE, alarm.getMinutes());
-        intent.putExtra(TONE, alarm.getRingtone().toString());
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        mgrAlarm.setRepeating(AlarmManager.RTC_WAKEUP, time, repeatTime, pendingIntent);
-
-    }
-
-    /***
-     *12repeat method
-     *this will let the alarm repeat every 12 hours
-     *
-     */
-
-    private static void repeat12(ModelAlarm alarm, Calendar calendar, Context context){
-
-        long time = calendar.getTimeInMillis();
-        long repeatTime =  12*60*1000; // minutes right now for easier testing
-
-        AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmService.class);
-        intent.putExtra(ID, alarm.getID());
-        intent.putExtra(NAME, alarm.toStringReminderInfo());
-        intent.putExtra(TIME_HOUR, alarm.getHours());
-        intent.putExtra(TIME_MINUTE, alarm.getMinutes());
-
-        intent.putExtra(TONE, alarm.getRingtone().toString());
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        mgrAlarm.setRepeating(AlarmManager.RTC_WAKEUP, time , repeatTime, pendingIntent);
-
-    }
-
-
-    /***
-     *24 repeat method
-     *this will let the alarm repeat every 24 hours
-     *
-     */
-    private static void repeat24(ModelAlarm alarm, Calendar calendar, Context context){
-
-        long time = calendar.getTimeInMillis();
-        long repeatTime =  24*60*1000; // minutes for testing
-
-        AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmService.class);
-        intent.putExtra(ID, alarm.getID());
-        intent.putExtra(NAME, alarm.toStringReminderInfo());
-        intent.putExtra(TIME_HOUR, alarm.getHours());
-        intent.putExtra(TIME_MINUTE, alarm.getMinutes());
-        intent.putExtra(TONE, alarm.getRingtone().toString());
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        mgrAlarm.setRepeating(AlarmManager.RTC_WAKEUP, time , repeatTime, pendingIntent);
-
-    }
 
     /***
      * Method to handle new API changes for setting up the alarm
      * @param context the current context
-     * @param time the current  alarm time
+     * @param calendar the current  alarm time
      * @param pIntent the pending intent for this alarm
      */
     @SuppressLint("NewApi")
-    private static void setAlarm(Context context, long time, PendingIntent pIntent, ModelAlarm alarm) {
+    private static void setAlarm(Context context, Calendar calendar, PendingIntent pIntent) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
         } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, time, pIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
         }
 
     }
@@ -211,7 +116,23 @@ public class AlarmManagerHelper extends BroadcastReceiver {
             }
         }
     }
+    /***
+     * Cancels  an alarm no longer in use
+     * @param context
+     */
+    public static void cancelAlarm(Context context, long alarmID) {
+        AlarmDBHelper dbHelper = new AlarmDBHelper(context);
 
+        ModelAlarm alarm =  dbHelper.getAlarm(alarmID);
+
+        if (alarm.getIsEnabled()) {
+            PendingIntent pIntent = createPendingIntent(context, alarm);
+
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.cancel(pIntent);
+        }
+
+    }
     /*
     this is the code that allows the alarms to work when the app is not active
      */
@@ -225,4 +146,108 @@ public class AlarmManagerHelper extends BroadcastReceiver {
 
         return PendingIntent.getService(context, (int) model.getID(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
+
+
+//code from failed attempt not sure if we may need later will remove in interation 3 if not needed
+
+    /***
+     * for testing only to be removed from final version
+     * 4 repeat method
+     * this method will allow the alarm to repeat every 4 hours
+     *
+     */
+
+
+ /*   private static void repeat4(ModelAlarm alarm, Calendar calendar, Context context){
+
+        long time = calendar.getTimeInMillis();
+        long repeatTime =  4*60*1000; // minutes right now for easier testing
+
+        AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmService.class);
+        intent.putExtra(ID, alarm.getID());
+        intent.putExtra(NAME, alarm.toStringReminderInfo());
+        intent.putExtra(TIME_HOUR, alarm.getHours());
+        intent.putExtra(TIME_MINUTE, alarm.getMinutes());
+        intent.putExtra(TONE, alarm.getRingtone().toString());
+        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        mgrAlarm.setRepeating(AlarmManager.RTC_WAKEUP, time , repeatTime, pendingIntent);
+
+        }
+
+    *//***
+     * 8 repeat method
+     * this will let the alarm repeat every 8 hours
+     *
+     *//*
+
+    private static void repeat8(ModelAlarm alarm, Calendar calendar, Context context){
+
+        long time = calendar.getTimeInMillis();
+        long repeatTime =  8*60*1000; // minutes right now for easier testing
+
+        AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmService.class);
+        intent.putExtra(ID, alarm.getID());
+        intent.putExtra(NAME, alarm.toStringReminderInfo());
+        intent.putExtra(TIME_HOUR, alarm.getHours());
+        intent.putExtra(TIME_MINUTE, alarm.getMinutes());
+        intent.putExtra(TONE, alarm.getRingtone().toString());
+        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        mgrAlarm.setRepeating(AlarmManager.RTC_WAKEUP, time, repeatTime, pendingIntent);
+
+    }
+
+    *//***
+     *12repeat method
+     *this will let the alarm repeat every 12 hours
+     *
+     *//*
+
+    private static void repeat12(ModelAlarm alarm, Calendar calendar, Context context){
+
+        long time = calendar.getTimeInMillis();
+        long repeatTime =  12*60*1000; // minutes right now for easier testing
+
+        AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmService.class);
+        intent.putExtra(ID, alarm.getID());
+        intent.putExtra(NAME, alarm.toStringReminderInfo());
+        intent.putExtra(TIME_HOUR, alarm.getHours());
+        intent.putExtra(TIME_MINUTE, alarm.getMinutes());
+
+        intent.putExtra(TONE, alarm.getRingtone().toString());
+        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        mgrAlarm.setRepeating(AlarmManager.RTC_WAKEUP, time , repeatTime, pendingIntent);
+
+    }
+
+
+    *//***
+     *24 repeat method
+     *this will let the alarm repeat every 24 hours
+     *
+     *//*
+    private static void repeat24(ModelAlarm alarm, Calendar calendar, Context context){
+
+        long time = calendar.getTimeInMillis();
+        long repeatTime =  24*60*1000; // minutes for testing
+
+        AlarmManager mgrAlarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmService.class);
+        intent.putExtra(ID, alarm.getID());
+        intent.putExtra(NAME, alarm.toStringReminderInfo());
+        intent.putExtra(TIME_HOUR, alarm.getHours());
+        intent.putExtra(TIME_MINUTE, alarm.getMinutes());
+        intent.putExtra(TONE, alarm.getRingtone().toString());
+        PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        mgrAlarm.setRepeating(AlarmManager.RTC_WAKEUP, time, repeatTime, pendingIntent);
+
+    }
+*/
+
 }
