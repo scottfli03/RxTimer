@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 /***
  * @author  Tracey Wilson 6/20/2015
  * this activity sets up the screen that is displayed when the alarm goes off
@@ -39,18 +41,22 @@ public class AlarmScreen extends Activity {
 
         //Setup layout
         this.setContentView(R.layout.activity_alarm_screen);
-
+        final int nowHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
         String name = getIntent().getStringExtra(AlarmManagerHelper.NAME);
-        int timeHour = getIntent().getIntExtra(AlarmManagerHelper.TIME_HOUR, 0);
-        int timeMinute = getIntent().getIntExtra(AlarmManagerHelper.TIME_MINUTE, 0);
         String tone = getIntent().getStringExtra(AlarmManagerHelper.TONE);
 
         TextView tvName = (TextView) findViewById(R.id.alarm_screen_name);
         tvName.setText(name);
 
         TextView tvTime = (TextView) findViewById(R.id.alarm_screen_time);
-        tvTime.setText(String.format("%02d : %02d", timeHour, timeMinute));
-
+        if (nowHour < 12) {
+            tvTime.setText(String.format("%02d:%02d", nowHour, nowMinute) + " am");
+        } else if (nowHour == 12) {
+            tvTime.setText(String.format("%02d:%02d", nowHour, nowMinute) + " pm");
+        } else {
+            tvTime.setText(String.format("%02d:%02d", nowHour - 12, nowMinute) + " pm");
+        }
         Button dismissButton = (Button) findViewById(R.id.alarm_screen_button);
         dismissButton.setOnClickListener(new View.OnClickListener() {
 
