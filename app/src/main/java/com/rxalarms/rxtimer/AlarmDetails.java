@@ -1,12 +1,16 @@
 package com.rxalarms.rxtimer;
 
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 /**
@@ -27,6 +31,7 @@ public class AlarmDetails extends ActionBarActivity {
     private EditText inst;
     private EditText time;
     private long id;
+    private TimePickerDialog timePickerDialog;
 
     public AlarmDetails() {}
     /**
@@ -81,6 +86,7 @@ public class AlarmDetails extends ActionBarActivity {
             }
             case R.id.action_edit_reminder: {
                 this.makeEditingEnable();
+                this.editTime();
                 break;
 
             }
@@ -130,6 +136,15 @@ public class AlarmDetails extends ActionBarActivity {
         time = (EditText) findViewById(R.id.alarmDetails_time);
         time.setText(alarmDetails.getHours() + ":" + alarmDetails.getMinutes());
         time.setEnabled(false);
+        time.requestFocus();
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == time) {
+                    timePickerDialog.show();
+                }
+            }
+        });
 
     }
 
@@ -184,14 +199,40 @@ public class AlarmDetails extends ActionBarActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dbHelper.deleteAlarm(alarmId);
-                        Toast.makeText(getApplicationContext(), " Alarm has been Deleted", Toast.LENGTH_SHORT).show();
                         onBackPressed();
+                        Toast toast = Toast.makeText(getApplicationContext(), " Alarm has been Deleted", Toast.LENGTH_SHORT);
+                        toast.show();
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
 
                     }
                 }).show();
 
     }
 
+
+    /**
+     * This method will set timepicker with given
+     * alarm time
+     *
+     */
+    private void editTime() {
+        int hrs = alarmDetails.getHours();
+        int mins = alarmDetails.getMinutes();
+
+        this.hr = hrs;
+        this.min = mins;
+        this.timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hour, int minute) {
+                        time.setText(String.format("%02d : %02d", hour, minute));
+                        hr = hour;
+                        min = minute;
+
+                    }
+                }, hr, mins, false);
+
+    }
 
 
 }
