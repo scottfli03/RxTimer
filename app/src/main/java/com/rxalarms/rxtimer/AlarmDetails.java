@@ -138,6 +138,8 @@ public class AlarmDetails extends ActionBarActivity {
         inst.setEnabled(false);
 
         time = (EditText) findViewById(R.id.alarmDetails_time);
+        this.hr = alarmDetails.getHours();
+        this.min = alarmDetails.getMinutes();
         time.setText(alarmDetails.getHours() + ":" + alarmDetails.getMinutes());
         time.setEnabled(false);
         time.requestFocus();
