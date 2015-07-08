@@ -70,12 +70,13 @@ public class AlarmScreen extends Activity {
                 if(alarm.getRepeat()!= 24){
                     if ((alarm.getMinutes() + alarm.getRepeat()) < 60) {
                         alarm.setAlarmMinutes(alarm.getMinutes() + alarm.getRepeat());
+                        dbHelper.createAlarm(alarm);
 
 
                     } else {
-                        alarm.setAlarmMinutes(alarm.getMinutes()+ alarm.getRepeat() - 60);
-                        alarm.setAlarmHour(alarm.getHours()+1);
-
+                        alarm.setAlarmMinutes(alarm.getMinutes() + alarm.getRepeat() - 60);
+                        alarm.setAlarmHour(alarm.getHours() + 1);
+                        dbHelper.createAlarm(alarm);
                     }
                 }
 

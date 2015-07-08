@@ -91,6 +91,7 @@ public class AlarmDetails extends ActionBarActivity {
                 this.editTime();
                 break;
 
+
             }
             case R.id.action_save_update_reminder: {
                 if ( verifyRequiredFiled()) {
@@ -198,7 +199,7 @@ public class AlarmDetails extends ActionBarActivity {
      */
     private void deleteAlarm(long id) {
         final long alarmId = id;
-        AlarmManagerHelper.cancelAlarms(this);
+        AlarmManagerHelper.cancelAlarm(this,alarmId);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Please confirm").setTitle("Delete Alarm ?")
                 .setCancelable(true).setNegativeButton("Cancel", null)
@@ -214,7 +215,7 @@ public class AlarmDetails extends ActionBarActivity {
 
                     }
                 }).show();
-        AlarmManagerHelper.setAlarms(this);
+       // AlarmManagerHelper.setAlarms(this);
 
     }
 
