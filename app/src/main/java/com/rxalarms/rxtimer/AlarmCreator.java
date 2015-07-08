@@ -79,8 +79,6 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
                 startActivityForResult(intent, 1);
             }
         });
-
-
     }
 
     //get the fields and input types
@@ -98,8 +96,6 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         timeEtxt = (EditText) findViewById(R.id.startTime);
         toDateEtxt.setInputType(InputType.TYPE_NULL);
         timeEtxt.requestFocus();
-
-
     }
 
     /***
@@ -153,8 +149,6 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
 
                     }
                 }, hour, minute, false);
-
-
     }
 
     @Override

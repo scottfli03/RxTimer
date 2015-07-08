@@ -84,27 +84,14 @@ public class AlarmList extends ActionBarActivity {
     }
 
     /**
-     *  This method called when an activity you launched exits,
-     *  giving you the requestCode you started it with, the resultCode it returned.
-     *
-     * @param requestCode integer request code originally supplied to
-     * @param resultCode  integer result code returned by
-     * @param data intent which return result data
+     *  This method called when an activity is at the top of the activity stack.
      */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == SAVED) {
+    protected void onResume() {
+        super.onResume();
             List<ModelAlarm> alarms = helper.getAlarms();
             mAdapter.setAlarms(alarms);
             mAdapter.notifyDataSetChanged();
-        }
-        else {
-            List<ModelAlarm> alarms = helper.getAlarms();
-            mAdapter.setAlarms(alarms);
-            mAdapter.notifyDataSetChanged();
-        }
     }
 
     /**
