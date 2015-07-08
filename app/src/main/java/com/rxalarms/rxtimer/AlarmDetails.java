@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -91,11 +93,13 @@ public class AlarmDetails extends ActionBarActivity {
 
             }
             case R.id.action_save_update_reminder: {
-                updatedAlarmDetails();
-                dbHelper = new AlarmDBHelper(this);
-                dbHelper.updateAlarm(alarmDetails);
-                setResult(RESULT_OK);
-                finish();
+                if ( verifyRequiredFiled()) {
+                    updatedAlarmDetails();
+                    dbHelper = new AlarmDBHelper(this);
+                    dbHelper.updateAlarm(alarmDetails);
+                    setResult(RESULT_OK);
+                    finish();
+                }
                 break;
 
             }
@@ -234,5 +238,42 @@ public class AlarmDetails extends ActionBarActivity {
 
     }
 
+    /**
+     * This method validate that filed are not empty before
+     * submitting updates
+     * make user to input values for all field
+     * @return true if all required filed present
+     */
+
+    private boolean verifyRequiredFiled() {
+        EditText patient = (EditText) findViewById(R.id.alarmDetails_patientName);
+        EditText medicine = (EditText) findViewById(R.id.alarmsDetails_medName);
+        EditText dosage = (EditText) findViewById(R.id.alarmDetails_dosage);
+        EditText time = (EditText) findViewById(R.id.alarmDetails_time);
+        EditText specialInstruction = (EditText) findViewById(R.id.alarmDetails_speInstruction);
+
+        if( patient.getText().toString().length() == 0 ){
+            patient.setError( "This field is required!" );
+            return false;
+        } else if( medicine.getText().toString().length() == 0 ) {
+            medicine.setError("This field is required!");
+            return false;
+        } else if( dosage.getText().toString().length() == 0 ) {
+            dosage.setError("This field is required!");
+            return false;
+        } else if( specialInstruction.getText().toString().length() == 0 ) {
+            specialInstruction.setError("This field is required!");
+            return false;
+        } else if (time.getText().toString().length()==0) {
+            time.setError("This field is required!");
+            return false;
+
+        }
+
+
+
+        return true;
+
+    }
 
 }
