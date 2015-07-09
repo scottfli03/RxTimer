@@ -35,7 +35,7 @@ public class AlarmDetails extends ActionBarActivity {
     private EditText time;
     private long id;
     private TimePickerDialog timePickerDialog;
-    private Context context = this;
+
     public AlarmDetails() {}
     /**
      * This method initialize activity
@@ -97,8 +97,10 @@ public class AlarmDetails extends ActionBarActivity {
             case R.id.action_save_update_reminder: {
                 if ( verifyRequiredFiled()) {
                     updatedAlarmDetails();
+                    AlarmManagerHelper.cancelAlarms(this);
                     dbHelper = new AlarmDBHelper(this);
                     dbHelper.updateAlarm(alarmDetails);
+                    AlarmManagerHelper.setAlarms(this);
                     setResult(RESULT_OK);
                     finish();
                 }
@@ -207,7 +209,7 @@ public class AlarmDetails extends ActionBarActivity {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AlarmManagerHelper.cancelAlarm(context,alarmId);
+                        AlarmManagerHelper.cancelAlarm(AlarmDetails.this,alarmId);
                         dbHelper.deleteAlarm(alarmId);
                         onBackPressed();
                         Toast toast = Toast.makeText(getApplicationContext(), " Alarm has been Deleted", Toast.LENGTH_SHORT);
