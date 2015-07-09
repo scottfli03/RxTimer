@@ -40,38 +40,40 @@ public class AlarmManagerHelper extends BroadcastReceiver {
 
         List<ModelAlarm> alarms =  dbHelper.getAlarms();
 
-        for (ModelAlarm alarm : alarms) {
-            if (alarm.getIsEnabled()) {
-                Calendar calendar = Calendar.getInstance();
-                //final int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-                final int nowHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
-                calendar.set(Calendar.HOUR_OF_DAY, alarm.getHours());
-                calendar.set(Calendar.MINUTE, alarm.getMinutes());
-                calendar.set(Calendar.SECOND, 00);
+        if (alarms != null) {
+            for (ModelAlarm alarm : alarms) {
+                if (alarm.getIsEnabled()) {
+                    Calendar calendar = Calendar.getInstance();
+                    //final int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+                    final int nowHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+                    final int nowMinute = Calendar.getInstance().get(Calendar.MINUTE);
+                    calendar.set(Calendar.HOUR_OF_DAY, alarm.getHours());
+                    calendar.set(Calendar.MINUTE, alarm.getMinutes());
+                    calendar.set(Calendar.SECOND, 00);
 
-                PendingIntent pIntent = createPendingIntent(context,alarm);
-                if (!(alarm.getHours() < nowHour) && !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
-                   /* code from past attempt will remove if still not needed in iteration 3
-                   switch(alarm.getRepeat()){
-                       case 4: {
-                           repeat4(alarm,calendar,context);
-                           break;
-                       }
-                       case 8: {
-                           repeat8(alarm,calendar,context);
-                           break;
-                       }
-                       case 12: {
-                           repeat12(alarm,calendar,context);
-                           break;
-                       }
-                       case 24: {
-                           repeat24(alarm, calendar, context);
-                           break;
-                       }*/
-                    setAlarm(context, calendar,pIntent);
+                    PendingIntent pIntent = createPendingIntent(context, alarm);
+                    if (!(alarm.getHours() < nowHour) && !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
+                       /* code from past attempt will remove if still not needed in iteration 3
+                       switch(alarm.getRepeat()){
+                           case 4: {
+                               repeat4(alarm,calendar,context);
+                               break;
+                           }
+                           case 8: {
+                               repeat8(alarm,calendar,context);
+                               break;
+                           }
+                           case 12: {
+                               repeat12(alarm,calendar,context);
+                               break;
+                           }
+                           case 24: {
+                               repeat24(alarm, calendar, context);
+                               break;
+                           }*/
+                        setAlarm(context, calendar, pIntent);
 
+                    }
                 }
             }
         }
@@ -146,6 +148,8 @@ public class AlarmManagerHelper extends BroadcastReceiver {
 
         return PendingIntent.getService(context, (int) model.getID(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
+
+
 
 
 //code from failed attempt not sure if we may need later will remove in interation 3 if not needed
