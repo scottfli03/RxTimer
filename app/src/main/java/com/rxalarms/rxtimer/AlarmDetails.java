@@ -1,6 +1,7 @@
 package com.rxalarms.rxtimer;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class AlarmDetails extends ActionBarActivity {
     private EditText time;
     private long id;
     private TimePickerDialog timePickerDialog;
-
+    private Context context = this;
     public AlarmDetails() {}
     /**
      * This method initialize activity
@@ -199,6 +200,7 @@ public class AlarmDetails extends ActionBarActivity {
      */
     private void deleteAlarm(long id) {
         final long alarmId = id;
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Please confirm").setTitle("Delete Alarm ?")
                 .setCancelable(true).setNegativeButton("Cancel", null)
