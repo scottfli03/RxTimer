@@ -199,26 +199,23 @@ public class AlarmDetails extends ActionBarActivity {
      */
     private void deleteAlarm(long id) {
         final long alarmId = id;
-        AlarmManagerHelper.cancelAlarm(this,alarmId);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Please confirm").setTitle("Delete Alarm ?")
                 .setCancelable(true).setNegativeButton("Cancel", null)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        AlarmManagerHelper.cancelAlarm(AlarmDetails.this ,alarmId);
                         dbHelper.deleteAlarm(alarmId);
                         onBackPressed();
                         Toast toast = Toast.makeText(getApplicationContext(), " Alarm has been Deleted", Toast.LENGTH_SHORT);
                         toast.show();
                         toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
-
                     }
                 }).show();
        // AlarmManagerHelper.setAlarms(this);
 
     }
-
 
     /**
      * This method will set timepicker with given
