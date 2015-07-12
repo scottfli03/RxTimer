@@ -144,7 +144,9 @@ public class AlarmDetails extends ActionBarActivity {
         time = (EditText) findViewById(R.id.alarmDetails_time);
         this.hr = alarmDetails.getHours();
         this.min = alarmDetails.getMinutes();
-        if (this.hr < 10) {
+        if (this.hr == 0) {
+            time.setText(String.format("%02d:%02d", this.hr + 12, this.min) + " am");
+        } else if (this.hr < 10) {
             time.setText(String.format("%01d:%02d", this.hr, this.min) + " am");
         } else if (this.hr < 12) {
             time.setText(String.format("%02d:%02d", this.hr, this.min) + " am");
@@ -248,7 +250,9 @@ public class AlarmDetails extends ActionBarActivity {
                     public void onTimeSet(TimePicker view, int hour, int minute) {
                         hr = hour;
                         min = minute;
-                        if (hr < 10) {
+                        if (hr == 0) {
+                            time.setText(String.format("%02d:%02d", hr + 12, min) + " am");
+                        } else if (hr < 10) {
                             time.setText(String.format("%01d:%02d", hr, min) + " am");
                         } else if (hr < 12) {
                             time.setText(String.format("%02d:%02d", hr, min) + " am");
