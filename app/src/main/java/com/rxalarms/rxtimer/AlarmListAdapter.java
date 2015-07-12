@@ -101,7 +101,9 @@ public class AlarmListAdapter extends BaseAdapter {
         ModelAlarm model = (ModelAlarm) getItem(position);
 
         TextView tvTime = (TextView) convertView.findViewById(R.id.alarm_item_time);
-        if (model.getHours() < 10) {
+        if (model.getHours() == 0) {
+            tvTime.setText(String.format("%02d:%02d", model.getHours() + 12, model.getMinutes()) + " am");
+        } else if (model.getHours() < 10) {
             tvTime.setText(String.format("%01d:%02d", model.getHours(), model.getMinutes()) + " am");
         } else if (model.getHours() < 12) {
             tvTime.setText(String.format("%02d:%02d", model.getHours(), model.getMinutes()) + " am");

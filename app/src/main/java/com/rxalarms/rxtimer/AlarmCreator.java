@@ -133,7 +133,9 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
-        if (hour < 10) {
+        if (hour == 0) {
+            timeEtxt.setText(String.format("%02d:%02d", hour + 12, minute) + " am");
+        } else if (hour < 10) {
             timeEtxt.setText(String.format("%01d:%02d", hour, minute) + " am");
         } else if (hour < 12) {
             timeEtxt.setText(String.format("%02d:%02d", hour, minute) + " am");
@@ -153,14 +155,16 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minuteOfDay) {
                         // Display Selected time in textbox
-                        if (hourOfDay < 10) {
-                            timeEtxt.setText(String.format("%01d:%01d", hourOfDay, minuteOfDay) + " am");
+                        if (hourOfDay == 0) {
+                            timeEtxt.setText(String.format("%02d:%02d", hourOfDay + 12, minuteOfDay) + " am");
+                        } else if (hourOfDay < 10) {
+                            timeEtxt.setText(String.format("%01d:%02d", hourOfDay, minuteOfDay) + " am");
                         } else if (hourOfDay < 12) {
                             timeEtxt.setText(String.format("%02d:%02d", hourOfDay, minuteOfDay) + " am");
                         } else if (hourOfDay == 12) {
                             timeEtxt.setText(String.format("%02d:%02d", hourOfDay, minuteOfDay) + " pm");
                         } else if (hourOfDay > 12 && hourOfDay < 22) {
-                            timeEtxt.setText(String.format("%01d:%01d", hourOfDay - 12, minuteOfDay) + " pm");
+                            timeEtxt.setText(String.format("%01d:%02d", hourOfDay - 12, minuteOfDay) + " pm");
                         } else {
                             timeEtxt.setText(String.format("%02d:%02d", hourOfDay - 12, minuteOfDay) + " pm");
                         }
