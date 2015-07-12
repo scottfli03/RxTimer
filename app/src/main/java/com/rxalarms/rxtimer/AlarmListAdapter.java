@@ -94,15 +94,24 @@ public class AlarmListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            LayoutInflater lInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater lInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = lInflater.inflate(R.layout.activity_alarm_list_item, parent, false);
         }
 
-        ModelAlarm model = (ModelAlarm)getItem(position);
+        ModelAlarm model = (ModelAlarm) getItem(position);
 
         TextView tvTime = (TextView) convertView.findViewById(R.id.alarm_item_time);
-        tvTime.setText(String.format("%02d : %02d", model.getHours(), model.getMinutes()) );
-
+        if (model.getHours() < 10) {
+            tvTime.setText(String.format("%01d:%02d", model.getHours(), model.getMinutes()) + " am");
+        } else if (model.getHours() < 12) {
+            tvTime.setText(String.format("%02d:%02d", model.getHours(), model.getMinutes()) + " am");
+        } else if (model.getHours() == 12) {
+            tvTime.setText(String.format("%02d:%02d", model.getHours(), model.getMinutes()) + " pm");
+        } else if (model.getHours() > 12 && model.getHours() < 22) {
+            tvTime.setText(String.format("%01d:%02d", model.getHours() - 12, model.getMinutes()) + " pm");
+        } else {
+            tvTime.setText(String.format("%02d:%02d", model.getHours() - 12, model.getMinutes()) + " pm");
+        }
         TextView tvReminderInfo = (TextView)convertView.findViewById(R.id.alarm_item_reminder);
         tvReminderInfo.setText(model.toStringReminderInfo());
 
