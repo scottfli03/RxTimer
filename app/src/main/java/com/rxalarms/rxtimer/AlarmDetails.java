@@ -169,7 +169,19 @@ public class AlarmDetails extends ActionBarActivity {
         time = (EditText) findViewById(R.id.alarmDetails_time);
         this.hr = alarmDetails.getHours();
         this.min = alarmDetails.getMinutes();
-        time.setText(alarmDetails.getHours() + ":" + alarmDetails.getMinutes());
+        if (this.hr == 0) {
+            time.setText(String.format("%02d:%02d", this.hr + 12, this.min) + " am");
+        } else if (this.hr < 10) {
+            time.setText(String.format("%01d:%02d", this.hr, this.min) + " am");
+        } else if (this.hr < 12) {
+            time.setText(String.format("%02d:%02d", this.hr, this.min) + " am");
+        } else if (this.hr == 12) {
+            time.setText(String.format("%02d:%02d", this.hr, this.min) + " pm");
+        } else if (this.hr > 12 && this.hr < 22) {
+            time.setText(String.format("%01d:%02d", this.hr - 12, this.min) + " pm");
+        } else {
+            time.setText(String.format("%02d:%02d", this.hr - 12, this.min) + " pm");
+        }
         time.setEnabled(false);
         time.requestFocus();
         time.setOnClickListener(new View.OnClickListener() {
@@ -292,10 +304,21 @@ public class AlarmDetails extends ActionBarActivity {
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hour, int minute) {
-                        time.setText(String.format("%02d : %02d", hour, minute));
                         hr = hour;
                         min = minute;
-
+                        if (hr == 0) {
+                            time.setText(String.format("%02d:%02d", hr + 12, min) + " am");
+                        } else if (hr < 10) {
+                            time.setText(String.format("%01d:%02d", hr, min) + " am");
+                        } else if (hr < 12) {
+                            time.setText(String.format("%02d:%02d", hr, min) + " am");
+                        } else if (hr == 12) {
+                            time.setText(String.format("%02d:%02d", hr, min) + " pm");
+                        } else if (hr > 12 && hr < 22) {
+                            time.setText(String.format("%01d:%02d", hr, min) + " pm");
+                        } else {
+                            time.setText(String.format("%02d:%02d", hr - 12, min) + " pm");
+                        }
                     }
                 }, hr, mins, false);
 

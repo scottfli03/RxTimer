@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by Tracey on 6/20/2015.
+ * Created by Tracey on 6/20/2015
  */
 public class AlarmManagerHelper extends BroadcastReceiver {
 
