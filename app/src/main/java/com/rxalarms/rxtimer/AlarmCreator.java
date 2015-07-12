@@ -83,7 +83,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
 
     //get the fields and input types
     private void findViewsById() {
-        fromDateEtxt = (EditText) findViewById(R.id.startDateSet);
+       /* fromDateEtxt = (EditText) findViewById(R.id.startDateSet);
         fromDateEtxt.setInputType(InputType.TYPE_NULL);
 
         fromDateEtxt.requestFocus();
@@ -91,10 +91,10 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         toDateEtxt = (EditText) findViewById(R.id.endDateSet);
         toDateEtxt.setInputType(InputType.TYPE_NULL);
 
-        toDateEtxt.requestFocus();
+        toDateEtxt.requestFocus();*/
 
         timeEtxt = (EditText) findViewById(R.id.startTime);
-        toDateEtxt.setInputType(InputType.TYPE_NULL);
+       // toDateEtxt.setInputType(InputType.TYPE_NULL);
         timeEtxt.requestFocus();
     }
 
@@ -103,11 +103,12 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
      * the appropriate picker will be displayed
      */
     private void setDateTimeField() {
-        fromDateEtxt.setOnClickListener(this);
-        toDateEtxt.setOnClickListener(this);
+
         timeEtxt.setOnClickListener(this);
 
-        Calendar newCalendar = Calendar.getInstance();
+       /* Calendar newCalendar = Calendar.getInstance();
+
+        alarmDetails.setStartDate(newCalendar.getTimeInMillis());
         fromDatePickerDialog = new DatePickerDialog(this, new OnDateSetListener() {
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -129,7 +130,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
             }
 
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
+*/
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -229,13 +230,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         EditText instructions = (EditText) findViewById(R.id.specialInstText);
         alarmDetails.setInstructions(instructions.getText().toString());
 
-        EditText startDate = (EditText) findViewById(R.id.startDateSet);
 
-        alarmDetails.setStartDate(start.getTime());
-
-        EditText endDate = (EditText) findViewById(R.id.endDateSet);
-
-        alarmDetails.setEndDate(end.getTime());
 
         //work around to set the hour and minutes as separate fields in the Alarm Model object.
         alarmDetails.setAlarmHour(startHour);
@@ -298,8 +293,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         EditText medicine = (EditText) findViewById(R.id.medNameText);
         EditText dosage = (EditText) findViewById(R.id.editTextDosage);
         EditText instructions = (EditText) findViewById(R.id.specialInstText);
-        EditText startDate = (EditText) findViewById(R.id.startDateSet);
-        EditText endDate = (EditText) findViewById(R.id.endDateSet);
+
 
 
         if( patient.getText().toString().length() == 0 ){
@@ -317,18 +311,6 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         }
 
 
-
-        if (today.after(start)) {
-
-            Toast.makeText(getApplicationContext(), "Start Date cannot already be past",
-                    Toast.LENGTH_LONG).show();
-            return  false;
-        } else if (start.getTime() > (end.getTime()+600000)){
-
-            Toast.makeText(getApplicationContext(), "End Date cannot be before Start Date",
-                    Toast.LENGTH_LONG).show();
-            return false;
-        }
 
 
         return true;

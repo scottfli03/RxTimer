@@ -96,9 +96,10 @@
         android:id="@+id/freqText"
         android:text="@string/frequency"
         android:textSize="8pt"
-        android:paddingTop="8dp"
-        android:layout_alignParentBottom="true"
-        />
+
+        android:layout_below="@+id/startTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Spinner
         android:id="@+id/SpinnerFeedbackType"
@@ -107,11 +108,11 @@
         android:entries="@array/frequencyList"
         android:textColor="@color/abc_background_cache_hint_selector_material_light"
         android:spinnerMode="dropdown"
-        android:layout_alignParentBottom="true"
         android:paddingTop="8dp"
 
-        android:layout_alignLeft="@+id/endDateSet"
-        android:layout_alignStart="@+id/endDateSet" />
+        android:layout_below="@+id/startTimeTextView"
+        android:layout_alignLeft="@+id/startTime"
+        android:layout_alignStart="@+id/startTime" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -134,52 +135,6 @@
         android:layout_below="@id/ReminderLabel"
 
         android:layout_alignParentRight="true"
-        android:focusable="false"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/startDateTextView"
-        android:text="@string/start_date"
-        android:layout_below="@id/startTimeTextView"
-        android:textSize="8pt"
-        android:paddingTop="8dp"
-        />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="8"
-        android:id="@+id/startDateSet"
-        android:hint="@string/start_date"
-        android:textColor="#ffffff"
-        android:layout_below="@id/startTimeTextView"
-        android:focusable="false"
-        android:layout_alignParentRight="true"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/endDateTextView"
-        android:text="@string/end_date"
-        android:textSize="8pt"
-        android:paddingTop="8dp"
-        android:layout_below="@id/startDateTextView"
-        />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="8"
-        android:id="@+id/endDateSet"
-        android:hint="@string/end_date"
-        android:textColor="#ffffff"
-        android:layout_below="@id/startDateTextView"
-        android:layout_alignParentRight="true"
-        android:inputType="date"
         android:focusable="false"
         />
 
@@ -212,8 +167,10 @@
         android:id="@+id/alarm_ringtone_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/endDateTextView"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_below="@+id/SpinnerFeedbackType"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/alarm_label_tone"

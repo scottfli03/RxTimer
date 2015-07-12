@@ -3,6 +3,9 @@ package com.rxalarms.rxtimer;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -33,6 +38,8 @@ public class AlarmDetails extends ActionBarActivity {
     private EditText dos;
     private EditText inst;
     private EditText time;
+    private TextView ringTone;
+    private LinearLayout ringTonePicker;
     private long id;
     private TimePickerDialog timePickerDialog;
     private Context context = this;
@@ -55,6 +62,18 @@ public class AlarmDetails extends ActionBarActivity {
             alarmDetails = dbHelper.getAlarm(id);
         }
         populateAlarmDetails();
+
+
+        final LinearLayout ringToneContainer = (LinearLayout) findViewById(R.id.alarm_ringtone_container);
+        ringToneContainer.requestFocus();
+        ringToneContainer.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                startActivityForResult(intent, 1);
+            }
+        });
     }
 
     /**
@@ -124,6 +143,12 @@ public class AlarmDetails extends ActionBarActivity {
      */
 
     private void populateAlarmDetails() {
+        ringTonePicker = (LinearLayout)findViewById(R.id.alarm_ringtone_container);
+        ringTonePicker.setEnabled(false);
+
+        ringTone = (TextView)findViewById(R.id.alarm_label_tone_selection);
+        ringTone.setText(RingtoneManager.getRingtone(this, alarmDetails.getRingtone()).getTitle(this));
+        ringTone.setEnabled(false);
 
         pName = (EditText) findViewById(R.id.alarmDetails_patientName);
         pName.setText(alarmDetails.getPatient());
@@ -162,6 +187,13 @@ public class AlarmDetails extends ActionBarActivity {
      * This method will update alarm details after changes made to alarm
      */
     private void updatedAlarmDetails() {
+
+
+        ringTone = (TextView)findViewById(R.id.alarm_label_tone_selection);
+        ringTone.setText(RingtoneManager.getRingtone(this, alarmDetails.getRingtone()).getTitle(this));
+
+
+
         pName= (EditText) findViewById(R.id.alarmDetails_patientName);
         alarmDetails.setPatient(pName.getText().toString());
 
@@ -180,7 +212,29 @@ public class AlarmDetails extends ActionBarActivity {
         onBackPressed();
     }
 
+    /***
+     * picking the alarm sound
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 1: {
+                    Uri name = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+                    alarmDetails.setRingtone(name);
+
+                    TextView txtToneSelection = (TextView) findViewById(R.id.alarm_label_tone_selection);
+                    txtToneSelection.setText(RingtoneManager.getRingtone(this, alarmDetails.getRingtone()).getTitle(this));
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+        }
+    }
 
     /**
      * This method will make alarmDetails
@@ -194,6 +248,8 @@ public class AlarmDetails extends ActionBarActivity {
         dos.setEnabled(true);
         inst.setEnabled(true);
         time.setEnabled(true);
+        ringTonePicker.setEnabled(true);
+        ringTone.setEnabled(true);
     }
 
     /**
@@ -244,6 +300,9 @@ public class AlarmDetails extends ActionBarActivity {
                 }, hr, mins, false);
 
     }
+
+
+
 
     /**
      * This method validate that filed are not empty before

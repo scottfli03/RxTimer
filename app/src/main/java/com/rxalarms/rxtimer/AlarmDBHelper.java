@@ -23,7 +23,7 @@ import static com.rxalarms.rxtimer.AlarmContract.*;
  */
 public class AlarmDBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "alarm.db";
 
     public static final String SQL_CREATE_ALARM =
@@ -35,8 +35,8 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
                     Alarm.COLUMN_NAME_INSTRUCTIONS + " TEXT, " +
                     Alarm.COLUMN_NAME_HOUR + " INTEGER, " +
                     Alarm.COLUMN_NAME_MINUTES + " INTEGER, " +
-                    Alarm.COLUMN_NAME_START_DATE + " INTEGER, " +
-                    Alarm.COLUMN_NAME_END_DATE + " INTEGER, " +
+                   // Alarm.COLUMN_NAME_START_DATE + " INTEGER, " +
+                   // Alarm.COLUMN_NAME_END_DATE + " INTEGER, " +
                     Alarm.COLUMN_NAME_REPEAT + " INTEGER, " +
                     Alarm.COLUMN_NAME_RINGTONE + " TEXT, " +
                     Alarm.COLUMN_NAME_ISENABLED + " BOOLEAN ) ";
@@ -94,8 +94,8 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         String instructions = c.getString(c.getColumnIndex(Alarm.COLUMN_NAME_INSTRUCTIONS));
         int hour = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_HOUR));
         int minutes = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_MINUTES));
-        long startDate = c.getLong(c.getColumnIndex(Alarm.COLUMN_NAME_START_DATE));
-        long endDate = c.getLong(c.getColumnIndex(Alarm.COLUMN_NAME_END_DATE));
+       // long startDate = c.getLong(c.getColumnIndex(Alarm.COLUMN_NAME_START_DATE));
+       // long endDate = c.getLong(c.getColumnIndex(Alarm.COLUMN_NAME_END_DATE));
         int repeat = c.getInt(c.getColumnIndex(Alarm.COLUMN_NAME_REPEAT));
         //Tracey made change here
         Uri ringtone = c.getString(c.getColumnIndex(Alarm.COLUMN_NAME_RINGTONE)) != "" ? Uri.parse(c.getString(c.getColumnIndex(Alarm.COLUMN_NAME_RINGTONE))) : null;
@@ -111,8 +111,8 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         alarm.setInstructions(instructions);
         alarm.setAlarmHour(hour);
         alarm.setAlarmMinutes(minutes);
-        alarm.setStartDate(startDate);
-        alarm.setEndDate(endDate);
+       // alarm.setStartDate(startDate);
+       // alarm.setEndDate(endDate);
         alarm.setRingtone(ringtone);
         alarm.setRepeat(repeat);
         alarm.setEnabled(isEnabled);
@@ -140,8 +140,8 @@ public class AlarmDBHelper extends SQLiteOpenHelper {
         values.put(Alarm.COLUMN_NAME_INSTRUCTIONS, alarm.getInstructions());
         values.put(Alarm.COLUMN_NAME_HOUR, alarm.getHours());
         values.put(Alarm.COLUMN_NAME_MINUTES, alarm.getMinutes());
-        values.put(Alarm.COLUMN_NAME_START_DATE, alarm.getStartDate());
-        values.put(Alarm.COLUMN_NAME_END_DATE, alarm.getEndDate());
+      //  values.put(Alarm.COLUMN_NAME_START_DATE, alarm.getStartDate());
+      //  values.put(Alarm.COLUMN_NAME_END_DATE, alarm.getEndDate());
         values.put(Alarm.COLUMN_NAME_RINGTONE, alarm.getRingtone() != null ?  alarm.getRingtone().toString() : ""); //Tracey Made change here
 
         values.put(Alarm.COLUMN_NAME_REPEAT, alarm.getRepeat());

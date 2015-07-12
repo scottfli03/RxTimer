@@ -53,24 +53,7 @@ public class AlarmManagerHelper extends BroadcastReceiver {
 
                     PendingIntent pIntent = createPendingIntent(context, alarm);
                     if (!(alarm.getHours() < nowHour) && !(alarm.getHours() == nowHour && alarm.getMinutes() <= nowMinute)) {
-                       /* code from past attempt will remove if still not needed in iteration 3
-                       switch(alarm.getRepeat()){
-                           case 4: {
-                               repeat4(alarm,calendar,context);
-                               break;
-                           }
-                           case 8: {
-                               repeat8(alarm,calendar,context);
-                               break;
-                           }
-                           case 12: {
-                               repeat12(alarm,calendar,context);
-                               break;
-                           }
-                           case 24: {
-                               repeat24(alarm, calendar, context);
-                               break;
-                           }*/
+
                         setAlarm(context, calendar, pIntent);
 
                     }
