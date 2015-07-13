@@ -109,7 +109,6 @@
         android:textColor="@color/abc_background_cache_hint_selector_material_light"
         android:spinnerMode="dropdown"
         android:paddingTop="8dp"
-
         android:layout_below="@+id/startTimeTextView"
         android:layout_alignLeft="@+id/startTime"
         android:layout_alignStart="@+id/startTime" />

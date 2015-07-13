@@ -113,12 +113,33 @@
         android:layout_alignParentStart="true" />
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:background="#ffbbbbbb"
+        android:hint="@string/frequency"
+        android:id="@+id/textView_repeat"
+        android:layout_below="@+id/alarmDetails_speInstruction"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/alarmdetails_repeat_spinner"
+        android:entries="@array/frequencyList"
+        android:spinnerMode="dropdown"
+        android:layout_toRightOf="@id/textView_repeat"
+        android:textColor="@color/abc_background_cache_hint_selector_material_light"
+        android:layout_below="@+id/alarmDetails_speInstruction" />
+
     <LinearLayout
         android:id="@+id/alarm_ringtone_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/alarmDetails_speInstruction"
+        android:layout_below="@+id/textView_repeat"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
@@ -141,4 +162,5 @@
             android:layout_weight="1"
             />
     </LinearLayout>
+
 </RelativeLayout>

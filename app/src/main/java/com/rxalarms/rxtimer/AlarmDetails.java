@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class AlarmDetails extends ActionBarActivity {
     private AlarmDBHelper dbHelper = new AlarmDBHelper(this);
     private int hr;
     private int min;
+    private Spinner spnRepeat;
     private EditText pName;
     private EditText mName;
     private EditText dos;
@@ -166,6 +168,19 @@ public class AlarmDetails extends ActionBarActivity {
         inst.setText(alarmDetails.getInstructions());
         inst.setEnabled(false);
 
+        this.spnRepeat = (Spinner) findViewById(R.id.alarmdetails_repeat_spinner);
+        int repeat = alarmDetails.getRepeat();
+        if (repeat == 4){
+            this.spnRepeat.setSelection(1);
+        } else if (repeat == 8) {
+            this.spnRepeat.setSelection(2);
+        } else if (repeat == 12) {
+            this.spnRepeat.setSelection(3);
+        } else {
+            spnRepeat.setSelection(0);
+        }
+        spnRepeat.setEnabled(false);
+
         time = (EditText) findViewById(R.id.alarmDetails_time);
         this.hr = alarmDetails.getHours();
         this.min = alarmDetails.getMinutes();
@@ -222,6 +237,19 @@ public class AlarmDetails extends ActionBarActivity {
         alarmDetails.setAlarmHour(hr);
         alarmDetails.setAlarmMinutes(min);
         onBackPressed();
+        String repeat = spnRepeat.getSelectedItem().toString();
+        if (repeat.equalsIgnoreCase("4 hours")) {
+            alarmDetails.setRepeat(4);
+            spnRepeat.setSelection(1);
+        } else if (repeat.equalsIgnoreCase("8 hours")) {
+            alarmDetails.setRepeat(8);
+            spnRepeat.setSelection(2);
+        } else if (repeat.equalsIgnoreCase("12 hours")) {
+            alarmDetails.setRepeat(12);
+            spnRepeat.setSelection(3);
+        } else {
+            alarmDetails.setRepeat(0);
+        }
     }
 
     /***
@@ -262,6 +290,7 @@ public class AlarmDetails extends ActionBarActivity {
         time.setEnabled(true);
         ringTonePicker.setEnabled(true);
         ringTone.setEnabled(true);
+        spnRepeat.setEnabled(true);
     }
 
     /**

@@ -54,20 +54,25 @@ public class AlarmScreen extends Activity {
         tvName.setText(name);
 
         TextView tvTime = (TextView) findViewById(R.id.alarm_screen_time);
-        if (nowHour < 12) {
+        if (nowHour < 10) {
+            tvTime.setText(String.format("%01d:%02d", nowHour, nowMinute) + " am");
+        } else if (nowHour < 12) {
             tvTime.setText(String.format("%02d:%02d", nowHour, nowMinute) + " am");
         } else if (nowHour == 12) {
             tvTime.setText(String.format("%02d:%02d", nowHour, nowMinute) + " pm");
+        } else if (nowHour < 22) {
+            tvTime.setText(String.format("%01d:%02d", nowHour - 12, nowMinute) + " pm");
         } else {
             tvTime.setText(String.format("%02d:%02d", nowHour - 12, nowMinute) + " pm");
         }
+
         Button dismissButton = (Button) findViewById(R.id.alarm_screen_button);
         dismissButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 mPlayer.stop();
-                if(alarm.getRepeat()!= 24){
+                if(alarm.getRepeat()!= 0){
                     if ((alarm.getMinutes() + alarm.getRepeat()) < 60) {
                         alarm.setAlarmMinutes(alarm.getMinutes() + alarm.getRepeat());
                         dbHelper.createAlarm(alarm);

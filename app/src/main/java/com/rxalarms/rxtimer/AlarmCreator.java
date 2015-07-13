@@ -277,7 +277,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         } else if (repeat.equalsIgnoreCase("12 hours")) {
             alarmDetails.setRepeat(12);
         } else {
-            alarmDetails.setRepeat(24);
+            alarmDetails.setRepeat(0);
         }
 
     }
