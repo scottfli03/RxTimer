@@ -104,4 +104,11 @@ public class AlarmList extends ActionBarActivity {
         intent.putExtra("id", id);
         ((AlarmList) mContext).startActivityForResult(intent, 0);
     }
+
+    public void setAlarmEnable(long id, boolean isEnable) {
+        ModelAlarm model = helper.getAlarm(id);
+        boolean enable = model.getIsEnabled();
+        enable = isEnable;
+        helper.updateAlarm(model);
+    }
 }
