@@ -105,10 +105,19 @@ public class AlarmList extends ActionBarActivity {
         ((AlarmList) mContext).startActivityForResult(intent, 0);
     }
 
+    /**
+     *This method will update the state of alarm in database
+     * @param id id of item in list
+     * @param isEnable state of alarm toggle button true or false
+     */
+
     public void setAlarmEnable(long id, boolean isEnable) {
+        AlarmManagerHelper.cancelAlarms(this);
+
         ModelAlarm model = helper.getAlarm(id);
-        boolean enable = model.getIsEnabled();
-        enable = isEnable;
+        model.isEnabled = isEnable;
         helper.updateAlarm(model);
+
+        AlarmManagerHelper.setAlarms(this);
     }
 }

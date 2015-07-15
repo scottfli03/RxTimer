@@ -20,7 +20,7 @@ public class ModelAlarm {
     private int alarmMinutes;
     private int repeat;
     private Uri ringtone;
-    private boolean isEnabled;
+    public boolean isEnabled;
 
 
     /**
