@@ -1,8 +1,11 @@
 package com.rxalarms.rxtimer.Tests;
 
 import android.test.InstrumentationTestCase;
+import android.widget.EditText;
 
+import com.rxalarms.rxtimer.AlarmCreator;
 import com.rxalarms.rxtimer.ModelAlarm;
+import com.rxalarms.rxtimer.R;
 
 /**
  * Created by Tracey on 6/18/2015.
@@ -11,11 +14,25 @@ import com.rxalarms.rxtimer.ModelAlarm;
  */
 
 public class AlarmInfoTest extends InstrumentationTestCase {
+
     public void testUpdateModel() throws Exception {
-        final int expected = 1;
-        final int reality = 1;
-        assertEquals(expected, reality);
+        ModelAlarm alarmDetails = new ModelAlarm();
+        ModelAlarm alarm = setModel();
+        AlarmCreator AC = new AlarmCreator();
+       // AC.updateModelFromLayout();
+
+
+
+
+        assertEquals(alarm.toString(), alarmDetails.toString());
     }
+
+
+    public void testSetTextField(){
+
+    }
+
+
     /**
      * Creates a template for the ModelAlarm.
      * @return  The ModelAlarm
@@ -31,5 +48,7 @@ public class AlarmInfoTest extends InstrumentationTestCase {
         alarm.setEnabled(true);
         return alarm;
     }
+
+
 }
 

@@ -39,23 +39,21 @@ import android.widget.Toast;
  * the alarm frequencey, etc.
  */
 public class AlarmCreator extends ActionBarActivity implements View.OnClickListener {
-    private EditText alarmTonetxt;
-    private EditText fromDateEtxt;
-    private EditText toDateEtxt;
+
     private EditText timeEtxt;
     private int startHour;
     private int startMin;
-    private Date today;
-
-    private Date start;
-    private Date end;
-
-    private DatePickerDialog fromDatePickerDialog;
-    private DatePickerDialog toDatePickerDialog;
     private TimePickerDialog timePickerDialog;
-    private SimpleDateFormat dateFormatter;
     private ModelAlarm alarmDetails;
     private AlarmDBHelper dbHelper = new AlarmDBHelper(this);
+    private SimpleDateFormat dateFormatter;
+    private Date today;
+    private EditText patient;
+    private EditText medicine;
+    private EditText dosage;
+    private EditText instructions;
+    private Spinner repeatTime;
+    private CheckBox alarmOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,18 +81,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
 
     //get the fields and input types
     private void findViewsById() {
-       /* fromDateEtxt = (EditText) findViewById(R.id.startDateSet);
-        fromDateEtxt.setInputType(InputType.TYPE_NULL);
-
-        fromDateEtxt.requestFocus();
-
-        toDateEtxt = (EditText) findViewById(R.id.endDateSet);
-        toDateEtxt.setInputType(InputType.TYPE_NULL);
-
-        toDateEtxt.requestFocus();*/
-
         timeEtxt = (EditText) findViewById(R.id.startTime);
-       // toDateEtxt.setInputType(InputType.TYPE_NULL);
         timeEtxt.requestFocus();
     }
 
@@ -106,31 +93,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
 
         timeEtxt.setOnClickListener(this);
 
-       /* Calendar newCalendar = Calendar.getInstance();
 
-        alarmDetails.setStartDate(newCalendar.getTimeInMillis());
-        fromDatePickerDialog = new DatePickerDialog(this, new OnDateSetListener() {
-
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                start = newDate.getTime();
-                fromDateEtxt.setText(dateFormatter.format(newDate.getTime()));
-            }
-
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
-        toDatePickerDialog = new DatePickerDialog(this, new OnDateSetListener() {
-
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                end = newDate.getTime();
-                toDateEtxt.setText(dateFormatter.format(newDate.getTime()));
-            }
-
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-*/
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -191,13 +154,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
      */
     @Override
     public void onClick(View view) {
-        if(view == fromDateEtxt) {
-            fromDatePickerDialog.show();
-        } else if(view == toDateEtxt) {
-            toDatePickerDialog.show();
-        } else if(view == timeEtxt) {
-            timePickerDialog.show();
-        }
+       timePickerDialog.show();
     }
 
     /***
@@ -242,43 +199,14 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
      */
     private void updateModelFromLayout() {
         //get the values that the user input
-        EditText patient = (EditText) findViewById(R.id.EditTextName);
-        alarmDetails.setPatient(patient.getText().toString());
+        getTextFields();
 
-        EditText medicine = (EditText) findViewById(R.id.medNameText);
-        alarmDetails.setMedicine(medicine.getText().toString());
-
-        EditText dosage = (EditText) findViewById(R.id.editTextDosage);
-        alarmDetails.setDosage(dosage.getText().toString());
-
-        EditText instructions = (EditText) findViewById(R.id.specialInstText);
-        alarmDetails.setInstructions(instructions.getText().toString());
-
-
-
+        setTextFields();
         //work around to set the hour and minutes as separate fields in the Alarm Model object.
         alarmDetails.setAlarmHour(startHour);
         alarmDetails.setAlarmMinutes(startMin);
 
-        /***
-         * gets the value of the Checkbox. If the value is true then the alarm is enabled
-         */
-        CheckBox alarmOn = (CheckBox) findViewById(R.id.CheckBoxResponse);
-        if(alarmOn.isChecked()){
-            alarmDetails.setEnabled(true);
-        }
 
-        Spinner repeatTime = (Spinner) findViewById(R.id.SpinnerFeedbackType);
-        String repeat = repeatTime.getSelectedItem().toString();
-        if (repeat.equalsIgnoreCase("4 hours")){
-            alarmDetails.setRepeat(4);
-        } else if (repeat.equalsIgnoreCase("8 hours")){
-            alarmDetails.setRepeat(8);
-        } else if (repeat.equalsIgnoreCase("12 hours")) {
-            alarmDetails.setRepeat(12);
-        } else {
-            alarmDetails.setRepeat(0);
-        }
 
     }
 
@@ -306,6 +234,44 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * method to get the info from the user input screen
+     *
+     */
+    private void getTextFields() {
+        patient = (EditText) findViewById(R.id.EditTextName);
+        medicine = (EditText) findViewById(R.id.medNameText);
+        dosage = (EditText) findViewById(R.id.editTextDosage);
+        instructions = (EditText) findViewById(R.id.specialInstText);
+        alarmOn = (CheckBox) findViewById(R.id.CheckBoxResponse);
+        repeatTime = (Spinner) findViewById(R.id.SpinnerFeedbackType);
+
+
+    }
+
+    /**
+     * set the properities of the alarm model from the Text Fields
+     */
+    private void setTextFields() {
+        alarmDetails.setPatient(patient.getText().toString());
+        alarmDetails.setMedicine(medicine.getText().toString());
+        alarmDetails.setDosage(dosage.getText().toString());
+        alarmDetails.setInstructions(instructions.getText().toString());
+        if(alarmOn.isChecked()){
+            alarmDetails.setEnabled(true);
+        }
+
+        String repeat = repeatTime.getSelectedItem().toString();
+        if (repeat.equalsIgnoreCase("4 hours")){
+            alarmDetails.setRepeat(4);
+        } else if (repeat.equalsIgnoreCase("8 hours")){
+            alarmDetails.setRepeat(8);
+        } else if (repeat.equalsIgnoreCase("12 hours")) {
+            alarmDetails.setRepeat(12);
+        } else {
+            alarmDetails.setRepeat(0);
+        }
+    }
 
     /***
      * this method validates the text fields and dates on the user input form
@@ -313,11 +279,7 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
      * correct
      */
     private boolean isValid(){
-        EditText patient = (EditText) findViewById(R.id.EditTextName);
-        EditText medicine = (EditText) findViewById(R.id.medNameText);
-        EditText dosage = (EditText) findViewById(R.id.editTextDosage);
-        EditText instructions = (EditText) findViewById(R.id.specialInstText);
-
+        getTextFields();
 
 
         if( patient.getText().toString().length() == 0 ){

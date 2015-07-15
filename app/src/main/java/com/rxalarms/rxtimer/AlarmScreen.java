@@ -128,6 +128,9 @@ public class AlarmScreen extends Activity {
         setResult(RESULT_OK);
     }
 
+
+
+
     /***
      * this methods are used to wake the phone if it is locked or asleep
      */

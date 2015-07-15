@@ -18,8 +18,6 @@ public class ModelAlarm {
     private long id;
     private int alarmHour;
     private int alarmMinutes;
-//    private long startDate;
-//    private long endDate;
     private int repeat;
     private Uri ringtone;
     private boolean isEnabled;
@@ -171,38 +169,7 @@ public class ModelAlarm {
         return isEnabled;
     }
 
-  /*  *//**
-     * Returns the start date of the Alarm.
-     * @return  The start date of the Alarm
-     *//*
-    public long getStartDate() {
-        return startDate;
-    }
 
-    *//**
-     * Sets the Alarm's start date
-     * @param startDate The start date
-     *//*
-    public void setStartDate(long startDate) {
-        this.startDate = startDate;
-    }
-*/
-   /**
-     * Returns the end date of the Alarm.
-     * @return  The end date of the Alarm
-     *//*
-    public long getEndDate() {
-        return endDate;
-    }
-
-    //**
-     * Sets the Alarm's end date.
-     * @param endDate The end date
-     *//*
-    public void setEndDate(long endDate) {
-        this.endDate = endDate;
-    }
-*/
     /**
      * Sets the ringtone.
      * @param ringtone  The ringtone
