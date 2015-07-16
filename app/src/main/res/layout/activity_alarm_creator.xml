@@ -9,16 +9,17 @@
     android:padding ="@dimen/activity_horizontal_margin"
 
 
-    android:background="@android:color/darker_gray">
+    android:background="@android:color/transparent">
 
 
     <TextView
         android:id="@+id/TextViewTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/patient_name"
         android:textSize="10pt"
-        android:textColor="#fffffefc"
+        android:textColor="#FF2B34FF"
+        android:textStyle="bold"
         />
 
 
@@ -28,7 +29,7 @@
         android:hint="@string/patient_name"
         android:inputType="textPersonName"
         android:layout_width="fill_parent"
-        android:textColor="#ffffff"
+        android:textColor="@android:color/black"
         android:layout_below="@id/TextViewTitle"
         />
 
@@ -38,11 +39,12 @@
         android:text="@string/med_title"
         android:id="@+id/medDetailsTextView"
         android:textSize="10pt"
-        android:textColor="#ffffffff"
+        android:textColor="#FF2B34FF"
         android:layout_marginTop="75dp"
         android:layout_below="@+id/EditTextName"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textStyle="bold" />
 
     <EditText
         android:layout_width="match_parent"
@@ -51,7 +53,7 @@
         android:hint="@string/med_name"
         android:ems="10"
         android:id="@+id/medNameText"
-        android:textColor="#ffffff"
+        android:textColor="@android:color/black"
         android:layout_below="@id/medDetailsTextView"
         />
 
@@ -62,7 +64,7 @@
         android:ems="10"
         android:id="@+id/specialInstText"
         android:hint="@string/special_inst"
-        android:textColor="#ffffff"
+        android:textColor="@android:color/black"
         android:layout_below="@id/medNameText"
         />
 
@@ -72,9 +74,9 @@
         android:layout_height="wrap_content"
         android:textSize="10pt"
         android:text="@string/remind_title"
-        android:textColor="#ffffffff"
+        android:textColor="#FF2B34FF"
         android:layout_below="@id/specialInstText"
-        />
+        android:textStyle="bold" />
 
     <CheckBox
         android:id="@+id/CheckBoxResponse"
@@ -82,7 +84,7 @@
         android:text="Alarm on"
         android:checked="true"
         android:layout_width="fill_parent"
-        android:textColor="#fffbffff"
+        android:textColor="#FF2B34FF"
         android:layout_below="@id/specialInstText"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/ReminderLabel"
@@ -99,7 +101,8 @@
 
         android:layout_below="@+id/startTime"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#ff51504e" />
 
     <Spinner
         android:id="@+id/SpinnerFeedbackType"
@@ -121,7 +124,7 @@
         android:layout_below="@id/ReminderLabel"
         android:textSize="8pt"
         android:paddingTop="8dp"
-        />
+        android:textColor="#ff51504e" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -130,7 +133,7 @@
         android:ems="8"
         android:id="@+id/startTime"
         android:hint="@string/start_time"
-        android:textColor="#ffffff"
+        android:textColor="@android:color/black"
         android:layout_below="@id/ReminderLabel"
 
         android:layout_alignParentRight="true"
@@ -139,14 +142,15 @@
 
     <TextView
         android:id="@+id/textView_dosage"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Dosage"
         android:textSize="10pt"
-        android:textColor="#fffffefc"
+        android:textColor="#FF2B34FF"
         android:layout_below="@id/EditTextName"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -155,7 +159,7 @@
         android:layout_below="@id/textView_dosage"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#ffffff"
+        android:textColor="@android:color/black"
         android:hint="dosage" />
 
 
@@ -179,7 +183,7 @@
             android:textSize="18sp"
             android:paddingTop="8dp"
             android:layout_weight="2"
-            />
+            android:textColor="#ff51504e" />
 
         <TextView
             android:id="@+id/alarm_label_tone_selection"
@@ -188,7 +192,7 @@
             android:hint="@string/alarm_tone_default"
             android:textSize="14sp"
             android:layout_weight="1"
-            />
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
 </RelativeLayout>

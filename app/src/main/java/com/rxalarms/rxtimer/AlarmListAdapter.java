@@ -120,7 +120,7 @@ public class AlarmListAdapter extends BaseAdapter {
         tvReminderInfo.setText(model.toStringReminderInfo());
 
 
-        
+
         ToggleButton button = (ToggleButton) convertView.findViewById(R.id.toggleButton);
 
         button.setTag(Long.valueOf(model.getID()));
