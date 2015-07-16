@@ -4,39 +4,45 @@ package com.rxalarms.rxtimer;
  * Created by Connor on 7/15/2015.
  */
 import android.support.test.InstrumentationRegistry;
-        import android.support.test.espresso.action.ViewActions;
-        import android.support.test.rule.ActivityTestRule;
-        import android.support.test.runner.AndroidJUnit4;
-        import android.test.ActivityInstrumentationTestCase2;
-        import android.test.suitebuilder.annotation.LargeTest;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.support.test.espresso.action.ViewActions;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.After;
-        import org.junit.Before;
-        import org.junit.Rule;
-        import org.junit.Test;
-        import org.junit.runner.RunWith;
+import android.test.suitebuilder.annotation.LargeTest;
 
-        import static android.support.test.espresso.Espresso.onView;
-        import static android.support.test.espresso.action.ViewActions.click;
-        import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-        import static android.support.test.espresso.action.ViewActions.typeText;
-        import static android.support.test.espresso.assertion.ViewAssertions.matches;
-        import static android.support.test.espresso.matcher.ViewMatchers.withId;
-        import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import org.hamcrest.Matcher;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import java.util.Calendar;
+
+import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.Espresso.onView;
+
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.assertion.ViewAssertions.selectedDescendantsMatch;
+import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
+import static android.support.test.espresso.matcher.ViewMatchers.withHint;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+//import static android.support.test.espresso.Matcher.LongListMatchers.withItemContent;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class AlarmCreatorActivityTest {
 
 
     private static final String STRING_TO_BE_TYPED = "Peter";
-   /* patient = (EditText) findViewById(R.id.EditTextName);
-    medicine = (EditText) findViewById(R.id.medNameText);
-    dosage = (EditText) findViewById(R.id.editTextDosage);
-    instructions = (EditText) findViewById(R.id.specialInstText);
+    private static final String STRING_FOR_TIME = "7:02";
+    private static final String STRING_FOR_REPEAT = "No Repeat";
+   /*
     alarmOn = (CheckBox) findViewById(R.id.CheckBoxResponse);
     repeatTime = (Spinner) findViewById(R.id.SpinnerFeedbackType);*/
 
@@ -71,6 +77,53 @@ public class AlarmCreatorActivityTest {
 
         onView(withId(R.id.specialInstText)).check(matches(withText(STRING_TO_BE_TYPED)));
     }
+
+    @Test
+    public void testSetRepeat() {
+        onData(withText("No Repeat")).inAdapterView(isDisplayed());
+
+        onData(withText("No Repeat")).inAdapterView(withText(STRING_FOR_REPEAT));
+    }
+
+    @Test
+
+    public void testSetTone() {
+        onData(withId(R.id.alarm_label_tone_selection)).inAdapterView(isDisplayed());
+        String tone ="Select an alarm tone";
+        onView(withId(R.id.alarm_label_tone_selection)).check(matches(withHint(tone)));
+    }
+
+    @Test
+    public void testSetAlarmOn() {
+        onView(withId(R.id.CheckBoxResponse)).check(matches(isChecked())); //line 1
+
+    }
+
+    @Test
+    public void testSetTime() {
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        String time;
+        if (hour == 0) {
+            time = (String.format("%02d:%02d", hour + 12, minute) + " am");
+        } else if (hour < 10) {
+            time = (String.format("%01d:%02d", hour, minute) + " am");
+        } else if (hour < 12) {
+            time = (String.format("%02d:%02d", hour, minute) + " am");
+        } else if (hour == 12) {
+            time = (String.format("%02d:%02d", hour, minute) + " pm");
+        } else if (hour > 12 && hour < 22) {
+            time = (String.format("%01d:%02d", hour - 12, minute) + " pm");
+        } else {
+            time = (String.format("%02d:%02d", hour - 12, minute) + " pm");
+        }
+        onData(withId(R.id.startTime)).inAdapterView(isDisplayed());
+
+        onView(withId(R.id.startTime)).check(matches(withText(time)));
+
+    }
+
 
 
 }
