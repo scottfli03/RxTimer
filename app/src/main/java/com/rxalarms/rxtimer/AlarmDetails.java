@@ -157,18 +157,22 @@ public class AlarmDetails extends ActionBarActivity {
         pName = (EditText) findViewById(R.id.alarmDetails_patientName);
         pName.setText(alarmDetails.getPatient());
         pName.setEnabled(false);
+        pName.setTextColor(Color.rgb(161, 161, 160));
 
         mName = (EditText) findViewById(R.id.alarmsDetails_medName);
         mName.setText(alarmDetails.getMedicine());
         mName.setEnabled(false);
+        mName.setTextColor(Color.rgb(161, 161, 160));
 
         dos = (EditText) findViewById(R.id.alarmDetails_dosage);
         dos.setText(alarmDetails.getDosage());
         dos.setEnabled(false);
+        dos.setTextColor(Color.rgb(161, 161, 160));
 
         inst = (EditText) findViewById(R.id.alarmDetails_speInstruction);
         inst.setText(alarmDetails.getInstructions());
         inst.setEnabled(false);
+        inst.setTextColor(Color.rgb(161, 161, 160));
 
         this.spnRepeat = (Spinner) findViewById(R.id.alarmdetails_repeat_spinner);
         int repeat = alarmDetails.getRepeat();
@@ -200,6 +204,7 @@ public class AlarmDetails extends ActionBarActivity {
             time.setText(String.format("%02d:%02d", this.hr - 12, this.min) + " pm");
         }
         time.setEnabled(false);
+        time.setTextColor(Color.rgb(161, 161, 160));
         time.requestFocus();
         time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,11 +222,8 @@ public class AlarmDetails extends ActionBarActivity {
      */
     private void updatedAlarmDetails() {
 
-
         ringTone = (TextView)findViewById(R.id.alarm_label_tone_selection);
         ringTone.setText(RingtoneManager.getRingtone(this, alarmDetails.getRingtone()).getTitle(this));
-
-
 
         pName= (EditText) findViewById(R.id.alarmDetails_patientName);
         alarmDetails.setPatient(pName.getText().toString());
@@ -286,11 +288,15 @@ public class AlarmDetails extends ActionBarActivity {
     private void makeEditingEnable() {
 
         pName.setEnabled(true);
-
+        pName.setTextColor(Color.BLACK);
         mName.setEnabled(true);
+        mName.setTextColor(Color.BLACK);
         dos.setEnabled(true);
+        dos.setTextColor(Color.BLACK);
         inst.setEnabled(true);
+        inst.setTextColor(Color.BLACK);
         time.setEnabled(true);
+        time.setTextColor(Color.BLACK);
         ringTonePicker.setEnabled(true);
         ringTone.setEnabled(true);
         spnRepeat.setEnabled(true);
@@ -355,9 +361,6 @@ public class AlarmDetails extends ActionBarActivity {
                 }, hr, mins, false);
 
     }
-
-
-
 
     /**
      * This method validate that filed are not empty before
