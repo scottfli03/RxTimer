@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
@@ -285,6 +286,7 @@ public class AlarmDetails extends ActionBarActivity {
     private void makeEditingEnable() {
 
         pName.setEnabled(true);
+
         mName.setEnabled(true);
         dos.setEnabled(true);
         inst.setEnabled(true);

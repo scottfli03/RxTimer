@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.util.List;
 
@@ -116,6 +118,20 @@ public class AlarmListAdapter extends BaseAdapter {
         }
         TextView tvReminderInfo = (TextView)convertView.findViewById(R.id.alarm_item_reminder);
         tvReminderInfo.setText(model.toStringReminderInfo());
+
+
+
+        ToggleButton button = (ToggleButton) convertView.findViewById(R.id.toggleButton);
+
+        button.setTag(Long.valueOf(model.getID()));
+        button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ((AlarmList) context).setAlarmEnable(((Long) buttonView.getTag()).longValue(), isChecked);
+            }
+        });
+        button.setChecked(model.isEnabled);
+
 
         convertView.setTag(model.getID());
         convertView.setOnClickListener(new View.OnClickListener() {

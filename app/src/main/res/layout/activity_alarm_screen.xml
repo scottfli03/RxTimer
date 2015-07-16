@@ -21,7 +21,8 @@
         android:layout_below="@+id/alarm_screen_title"
         android:layout_marginTop="28dp"
         android:text="00 : 00"
-        android:textSize="52dp" />
+        android:textSize="52dp"
+        android:textColor="#FF2B34FF" />
 
     <TextView
         android:id="@+id/alarm_screen_name"
@@ -30,7 +31,8 @@
         android:layout_below="@+id/alarm_screen_time"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
-        android:text="Alarm name" />
+        android:text="Alarm name"
+        android:textColor="@android:color/black" />
 
     <Button
         android:id="@+id/alarm_screen_button"
