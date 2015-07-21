@@ -1,7 +1,9 @@
-package com.rxalarms.rxtimer;
+package com.rxalarms.rxtimer.UnusedFilesInIteration;
 
 import android.support.v7.app.ActionBarActivity;
 import android.widget.EditText;
+
+import com.rxalarms.rxtimer.R;
 
 /**
  * Created by Tracey Wilson on 6/26/2015.

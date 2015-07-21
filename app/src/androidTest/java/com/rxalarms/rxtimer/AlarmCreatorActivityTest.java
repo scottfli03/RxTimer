@@ -1,16 +1,13 @@
 package com.rxalarms.rxtimer;
 
 /**
- * Created by Connor on 7/15/2015.
+ * Created by Tracey Wilson  on 7/15/2015.
  */
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.action.ViewActions;
+
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import android.test.suitebuilder.annotation.LargeTest;
-
-import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,21 +16,15 @@ import java.util.Calendar;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
-
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.assertion.ViewAssertions.selectedDescendantsMatch;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-//import static android.support.test.espresso.Matcher.LongListMatchers.withItemContent;
+
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class AlarmCreatorActivityTest {
@@ -42,9 +33,8 @@ public class AlarmCreatorActivityTest {
     private static final String STRING_TO_BE_TYPED = "Peter";
     private static final String STRING_FOR_TIME = "7:02";
     private static final String STRING_FOR_REPEAT = "No Repeat";
-   /*
-    alarmOn = (CheckBox) findViewById(R.id.CheckBoxResponse);
-    repeatTime = (Spinner) findViewById(R.id.SpinnerFeedbackType);*/
+
+
 
     @Rule
     public ActivityTestRule<AlarmCreator> mActivityRule = new ActivityTestRule<>(
