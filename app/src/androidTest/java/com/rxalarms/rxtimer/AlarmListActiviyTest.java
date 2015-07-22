@@ -1,14 +1,8 @@
 package com.rxalarms.rxtimer;
 
-/**
- * Created by Dimple Doshi
- *
- */
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
@@ -18,26 +12,16 @@ import android.test.suitebuilder.annotation.LargeTest;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onData;
-import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.pressBack;
-import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
-import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static java.util.EnumSet.allOf;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.core.IsAnything.anything;
 
 /**
- * Created by hardik on 7/19/2015.
+ * Created by Dimple Doshi on 7/19/2015.
+ * This class test the Alarmlistactivity
  */
 
 @RunWith(AndroidJUnit4.class)
@@ -56,11 +40,18 @@ public class AlarmListActiviyTest extends ActivityInstrumentationTestCase2<Alarm
         super(AlarmList.class);
     }
 
+    /**
+     * Test click on add list icon
+     */
+
     @Test
-    public void saveListItem() {
+    public void testAddListItem() {
         Espresso.onView(ViewMatchers.withId(R.id.action_add_reminder)).perform(ViewActions.click());
     }
 
+    /**
+     * Test click on list
+     */
     @Test
     public void testListViewClickC() {
         Espresso.onView(withId(android.R.id.list)).perform(click());
