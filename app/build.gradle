@@ -31,12 +31,10 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.0' //? MAKE SURE IT’S 22.0.0
-
     testCompile 'junit:junit:4.12'
 
     //ADD THESE LINES:
     androidTestCompile 'com.android.support.test:runner:0.3'
     androidTestCompile 'com.android.support.test:rules:0.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
-
 }
