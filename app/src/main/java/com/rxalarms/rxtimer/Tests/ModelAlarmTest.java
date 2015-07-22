@@ -5,13 +5,12 @@ import android.test.InstrumentationTestCase;
 import com.rxalarms.rxtimer.ModelAlarm;
 
 /**
- * Created by scottfli03 on 6/19/15.
+ * Created by Scott Flischel on 6/19/15.
  *
  * Tests ModelAlarm's methods
  */
 public class ModelAlarmTest extends InstrumentationTestCase {
 
-    //TODO: Add tests for set/get repeat, ringtone, startDate, and endDate
     /**
      * Tests when Sam is set for the patient name that Same is returned.
      * @throws Exception
@@ -80,6 +79,16 @@ public class ModelAlarmTest extends InstrumentationTestCase {
         ModelAlarm alarm = new ModelAlarm();
         alarm.setEnabled(true);
         assertEquals(true, alarm.getIsEnabled());
+    }
+
+    /**
+     * Tests when repeat is set to 1 that when getRepeat is called it returns 1
+     * @throws Exception
+     */
+    public void testSetGetRepeat1Equals1() throws Exception {
+        ModelAlarm alarm = new ModelAlarm();
+        alarm.setRepeat(1);
+        assertEquals(1, alarm.getRepeat());
     }
 
     /**

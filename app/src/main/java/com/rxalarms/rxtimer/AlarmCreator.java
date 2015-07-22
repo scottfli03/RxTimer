@@ -295,10 +295,6 @@ public class AlarmCreator extends ActionBarActivity implements View.OnClickListe
             instructions.setError( "This field is required!" );
             return false;
         }
-
-
-
-
         return true;
     }
 
